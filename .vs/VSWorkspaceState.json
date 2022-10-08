@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\ORSAPR"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\ORSAPR",
   "PreviewInSolutionExplorer": false
 }
