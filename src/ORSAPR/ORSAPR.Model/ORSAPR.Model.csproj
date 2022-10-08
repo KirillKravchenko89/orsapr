@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>002d530c-3698-48df-8c08-4fb57cd7af5c</ProjectGuid>
+    <ProjectGuid>7b5dc893-808e-4a06-af5d-06f439653a6f</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ORSAPR.Model</RootNamespace>
