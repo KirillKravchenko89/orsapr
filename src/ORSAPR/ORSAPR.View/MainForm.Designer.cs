@@ -1,7 +1,7 @@
 ﻿
 namespace ORSAPR.View
 {
-    partial class Form1
+    partial class FormParameters
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,116 +29,116 @@ namespace ORSAPR.View
         /// </summary>
         private void InitializeComponent()
         {
-            this.LabelWeight = new System.Windows.Forms.Label();
-            this.LabelLeight = new System.Windows.Forms.Label();
-            this.LabelHight = new System.Windows.Forms.Label();
-            this.LabelInnerLeight = new System.Windows.Forms.Label();
-            this.LabelBladeLeight = new System.Windows.Forms.Label();
-            this.TextBoxHight = new System.Windows.Forms.TextBox();
-            this.TextBoxLeight = new System.Windows.Forms.TextBox();
-            this.TextBoxWeight = new System.Windows.Forms.TextBox();
-            this.TextBoxBladeLeight = new System.Windows.Forms.TextBox();
-            this.TextBoxInnerLeight = new System.Windows.Forms.TextBox();
+            this.LabelWidht = new System.Windows.Forms.Label();
+            this.LabelLenght = new System.Windows.Forms.Label();
+            this.LabelHeight = new System.Windows.Forms.Label();
+            this.LabelInnerLenght = new System.Windows.Forms.Label();
+            this.LabelBladeLenght = new System.Windows.Forms.Label();
+            this.TextBoxHeight = new System.Windows.Forms.TextBox();
+            this.TextBoxLenght = new System.Windows.Forms.TextBox();
+            this.TextBoxWidht = new System.Windows.Forms.TextBox();
+            this.TextBoxBladeLenght = new System.Windows.Forms.TextBox();
+            this.TextBoxInnerLenght = new System.Windows.Forms.TextBox();
             this.ButtonSave = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.PanelWindow = new System.Windows.Forms.Panel();
+            this.LabelParameter = new System.Windows.Forms.Label();
+            this.PanelWindow.SuspendLayout();
             this.SuspendLayout();
             // 
-            // LabelWeight
+            // LabelWidht
             // 
-            this.LabelWeight.AutoSize = true;
-            this.LabelWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelWeight.Location = new System.Drawing.Point(25, 201);
-            this.LabelWeight.Name = "LabelWeight";
-            this.LabelWeight.Size = new System.Drawing.Size(142, 18);
-            this.LabelWeight.TabIndex = 1;
-            this.LabelWeight.Text = "W - Ширина зубила";
+            this.LabelWidht.AutoSize = true;
+            this.LabelWidht.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelWidht.Location = new System.Drawing.Point(25, 201);
+            this.LabelWidht.Name = "LabelWidht";
+            this.LabelWidht.Size = new System.Drawing.Size(142, 18);
+            this.LabelWidht.TabIndex = 1;
+            this.LabelWidht.Text = "W - Ширина зубила";
             // 
-            // LabelLeight
+            // LabelLenght
             // 
-            this.LabelLeight.AutoSize = true;
-            this.LabelLeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelLeight.Location = new System.Drawing.Point(25, 151);
-            this.LabelLeight.Name = "LabelLeight";
-            this.LabelLeight.Size = new System.Drawing.Size(127, 18);
-            this.LabelLeight.TabIndex = 2;
-            this.LabelLeight.Text = "L - Длина зубила";
+            this.LabelLenght.AutoSize = true;
+            this.LabelLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelLenght.Location = new System.Drawing.Point(25, 151);
+            this.LabelLenght.Name = "LabelLenght";
+            this.LabelLenght.Size = new System.Drawing.Size(127, 18);
+            this.LabelLenght.TabIndex = 2;
+            this.LabelLenght.Text = "L - Длина зубила";
             // 
-            // LabelHight
+            // LabelHeight
             // 
-            this.LabelHight.AutoSize = true;
-            this.LabelHight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelHight.Location = new System.Drawing.Point(27, 101);
-            this.LabelHight.Name = "LabelHight";
-            this.LabelHight.Size = new System.Drawing.Size(138, 18);
-            this.LabelHight.TabIndex = 3;
-            this.LabelHight.Text = "H - Высота зубила";
+            this.LabelHeight.AutoSize = true;
+            this.LabelHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelHeight.Location = new System.Drawing.Point(27, 101);
+            this.LabelHeight.Name = "LabelHeight";
+            this.LabelHeight.Size = new System.Drawing.Size(138, 18);
+            this.LabelHeight.TabIndex = 3;
+            this.LabelHeight.Text = "H - Высота зубила";
             // 
-            // LabelInnerLeight
+            // LabelInnerLenght
             // 
-            this.LabelInnerLeight.AutoSize = true;
-            this.LabelInnerLeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelInnerLeight.Location = new System.Drawing.Point(25, 251);
-            this.LabelInnerLeight.Name = "LabelInnerLeight";
-            this.LabelInnerLeight.Size = new System.Drawing.Size(184, 18);
-            this.LabelInnerLeight.TabIndex = 4;
-            this.LabelInnerLeight.Text = "l1 – Длина выреза зубила";
+            this.LabelInnerLenght.AutoSize = true;
+            this.LabelInnerLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelInnerLenght.Location = new System.Drawing.Point(25, 251);
+            this.LabelInnerLenght.Name = "LabelInnerLenght";
+            this.LabelInnerLenght.Size = new System.Drawing.Size(184, 18);
+            this.LabelInnerLenght.TabIndex = 4;
+            this.LabelInnerLenght.Text = "l1 – Длина выреза зубила";
             // 
-            // LabelBladeLeight
+            // LabelBladeLenght
             // 
-            this.LabelBladeLeight.AutoSize = true;
-            this.LabelBladeLeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelBladeLeight.Location = new System.Drawing.Point(25, 301);
-            this.LabelBladeLeight.Name = "LabelBladeLeight";
-            this.LabelBladeLeight.Size = new System.Drawing.Size(182, 18);
-            this.LabelBladeLeight.TabIndex = 5;
-            this.LabelBladeLeight.Text = "l2 – Длина лезвия зубила";
+            this.LabelBladeLenght.AutoSize = true;
+            this.LabelBladeLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelBladeLenght.Location = new System.Drawing.Point(25, 301);
+            this.LabelBladeLenght.Name = "LabelBladeLenght";
+            this.LabelBladeLenght.Size = new System.Drawing.Size(182, 18);
+            this.LabelBladeLenght.TabIndex = 5;
+            this.LabelBladeLenght.Text = "l2 – Длина лезвия зубила";
             // 
-            // TextBoxHight
+            // TextBoxHeight
             // 
-            this.TextBoxHight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxHeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxHight.Location = new System.Drawing.Point(236, 100);
-            this.TextBoxHight.Name = "TextBoxHight";
-            this.TextBoxHight.Size = new System.Drawing.Size(213, 22);
-            this.TextBoxHight.TabIndex = 6;
+            this.TextBoxHeight.Location = new System.Drawing.Point(236, 100);
+            this.TextBoxHeight.Name = "TextBoxHeight";
+            this.TextBoxHeight.Size = new System.Drawing.Size(213, 22);
+            this.TextBoxHeight.TabIndex = 6;
             // 
-            // TextBoxLeight
+            // TextBoxLenght
             // 
-            this.TextBoxLeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxLeight.Location = new System.Drawing.Point(236, 150);
-            this.TextBoxLeight.Name = "TextBoxLeight";
-            this.TextBoxLeight.Size = new System.Drawing.Size(213, 22);
-            this.TextBoxLeight.TabIndex = 7;
+            this.TextBoxLenght.Location = new System.Drawing.Point(236, 150);
+            this.TextBoxLenght.Name = "TextBoxLenght";
+            this.TextBoxLenght.Size = new System.Drawing.Size(213, 22);
+            this.TextBoxLenght.TabIndex = 7;
             // 
-            // TextBoxWeight
+            // TextBoxWidht
             // 
-            this.TextBoxWeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxWidht.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxWeight.Location = new System.Drawing.Point(236, 200);
-            this.TextBoxWeight.Name = "TextBoxWeight";
-            this.TextBoxWeight.Size = new System.Drawing.Size(213, 22);
-            this.TextBoxWeight.TabIndex = 8;
+            this.TextBoxWidht.Location = new System.Drawing.Point(236, 200);
+            this.TextBoxWidht.Name = "TextBoxWidht";
+            this.TextBoxWidht.Size = new System.Drawing.Size(213, 22);
+            this.TextBoxWidht.TabIndex = 8;
             // 
-            // TextBoxBladeLeight
+            // TextBoxBladeLenght
             // 
-            this.TextBoxBladeLeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxBladeLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxBladeLeight.Location = new System.Drawing.Point(236, 300);
-            this.TextBoxBladeLeight.Name = "TextBoxBladeLeight";
-            this.TextBoxBladeLeight.Size = new System.Drawing.Size(213, 22);
-            this.TextBoxBladeLeight.TabIndex = 9;
+            this.TextBoxBladeLenght.Location = new System.Drawing.Point(236, 300);
+            this.TextBoxBladeLenght.Name = "TextBoxBladeLenght";
+            this.TextBoxBladeLenght.Size = new System.Drawing.Size(213, 22);
+            this.TextBoxBladeLenght.TabIndex = 9;
             // 
-            // TextBoxInnerLeight
+            // TextBoxInnerLenght
             // 
-            this.TextBoxInnerLeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TextBoxInnerLenght.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxInnerLeight.Location = new System.Drawing.Point(236, 250);
-            this.TextBoxInnerLeight.Name = "TextBoxInnerLeight";
-            this.TextBoxInnerLeight.Size = new System.Drawing.Size(213, 22);
-            this.TextBoxInnerLeight.TabIndex = 10;
+            this.TextBoxInnerLenght.Location = new System.Drawing.Point(236, 250);
+            this.TextBoxInnerLenght.Name = "TextBoxInnerLenght";
+            this.TextBoxInnerLenght.Size = new System.Drawing.Size(213, 22);
+            this.TextBoxInnerLenght.TabIndex = 10;
             // 
             // ButtonSave
             // 
@@ -152,72 +152,72 @@ namespace ORSAPR.View
             this.ButtonSave.Text = "Сохранить";
             this.ButtonSave.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // PanelWindow
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PanelWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.TextBoxLeight);
-            this.panel1.Controls.Add(this.ButtonSave);
-            this.panel1.Controls.Add(this.TextBoxHight);
-            this.panel1.Controls.Add(this.TextBoxInnerLeight);
-            this.panel1.Controls.Add(this.TextBoxWeight);
-            this.panel1.Controls.Add(this.LabelBladeLeight);
-            this.panel1.Controls.Add(this.TextBoxBladeLeight);
-            this.panel1.Controls.Add(this.LabelInnerLeight);
-            this.panel1.Controls.Add(this.LabelHight);
-            this.panel1.Controls.Add(this.LabelLeight);
-            this.panel1.Controls.Add(this.LabelWeight);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.MaximumSize = new System.Drawing.Size(920, 1160);
-            this.panel1.MinimumSize = new System.Drawing.Size(450, 520);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(460, 580);
-            this.panel1.TabIndex = 12;
+            this.PanelWindow.Controls.Add(this.LabelParameter);
+            this.PanelWindow.Controls.Add(this.TextBoxLenght);
+            this.PanelWindow.Controls.Add(this.ButtonSave);
+            this.PanelWindow.Controls.Add(this.TextBoxHeight);
+            this.PanelWindow.Controls.Add(this.TextBoxInnerLenght);
+            this.PanelWindow.Controls.Add(this.TextBoxWidht);
+            this.PanelWindow.Controls.Add(this.LabelBladeLenght);
+            this.PanelWindow.Controls.Add(this.TextBoxBladeLenght);
+            this.PanelWindow.Controls.Add(this.LabelInnerLenght);
+            this.PanelWindow.Controls.Add(this.LabelHeight);
+            this.PanelWindow.Controls.Add(this.LabelLenght);
+            this.PanelWindow.Controls.Add(this.LabelWidht);
+            this.PanelWindow.Location = new System.Drawing.Point(12, 12);
+            this.PanelWindow.MaximumSize = new System.Drawing.Size(920, 1160);
+            this.PanelWindow.MinimumSize = new System.Drawing.Size(450, 520);
+            this.PanelWindow.Name = "PanelWindow";
+            this.PanelWindow.Size = new System.Drawing.Size(460, 580);
+            this.PanelWindow.TabIndex = 12;
             // 
-            // label6
+            // LabelParameter
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(104, 36);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(252, 25);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Параметры инструмента";
+            this.LabelParameter.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LabelParameter.AutoSize = true;
+            this.LabelParameter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.LabelParameter.Location = new System.Drawing.Point(104, 36);
+            this.LabelParameter.Name = "LabelParameter";
+            this.LabelParameter.Size = new System.Drawing.Size(252, 25);
+            this.LabelParameter.TabIndex = 12;
+            this.LabelParameter.Text = "Параметры инструмента";
             // 
-            // Form1
+            // FormParameters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 604);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.PanelWindow);
             this.MaximumSize = new System.Drawing.Size(1002, 1182);
             this.MinimumSize = new System.Drawing.Size(491, 591);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Name = "FormParameters";
+            this.Text = "Настройки";
+            this.PanelWindow.ResumeLayout(false);
+            this.PanelWindow.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label LabelWeight;
-        private System.Windows.Forms.Label LabelLeight;
-        private System.Windows.Forms.Label LabelHight;
-        private System.Windows.Forms.Label LabelInnerLeight;
-        private System.Windows.Forms.Label LabelBladeLeight;
-        private System.Windows.Forms.TextBox TextBoxHight;
-        private System.Windows.Forms.TextBox TextBoxLeight;
-        private System.Windows.Forms.TextBox TextBoxWeight;
-        private System.Windows.Forms.TextBox TextBoxBladeLeight;
-        private System.Windows.Forms.TextBox TextBoxInnerLeight;
+        private System.Windows.Forms.Label LabelWidht;
+        private System.Windows.Forms.Label LabelLenght;
+        private System.Windows.Forms.Label LabelHeight;
+        private System.Windows.Forms.Label LabelInnerLenght;
+        private System.Windows.Forms.Label LabelBladeLenght;
+        private System.Windows.Forms.TextBox TextBoxHeight;
+        private System.Windows.Forms.TextBox TextBoxLenght;
+        private System.Windows.Forms.TextBox TextBoxWidht;
+        private System.Windows.Forms.TextBox TextBoxBladeLenght;
+        private System.Windows.Forms.TextBox TextBoxInnerLenght;
         private System.Windows.Forms.Button ButtonSave;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel PanelWindow;
+        private System.Windows.Forms.Label LabelParameter;
     }
 }
 

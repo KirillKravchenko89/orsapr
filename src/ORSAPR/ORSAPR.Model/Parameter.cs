@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ORSAPR.Model
 {
-    public class Class1
-    {
+    /// <summary>
+    /// класс параметров зубила
+    /// </summary>
+    public class Parameter
+    {   
     }
 }
