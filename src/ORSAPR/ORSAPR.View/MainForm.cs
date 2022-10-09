@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ORSAPR.View
 {
-    public partial class Form1 : Form
+    public partial class FormParameters : System.Windows.Forms.Form
     {
-        public Form1()
+        public FormParameters()
         {
             InitializeComponent();
         }
