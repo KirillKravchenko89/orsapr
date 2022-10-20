@@ -68,6 +68,18 @@ namespace ORSAPR.Model
             get => _width;
             set
             {
+                string valueString = value.ToString();
+                for (int i = 0; i < 10 ; i++)
+                {
+                    if (double.TryParse(valueString, out var parsedNumber))
+                    {
+                        throw new Exception("Width parameter is incorrect!" +
+                           " Width has unacceptable symbols!" +
+                           " This field cannot contain letters or symbols");
+                    }
+
+
+                }
                 _width = value;
             }
         }
