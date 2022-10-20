@@ -108,7 +108,7 @@ namespace ORSAPR.View
         {
             string messageBoxText = $"Вы действительно хотите закрыть окно?" +
                $"{ Environment.NewLine}Введенные данные будут удалены.";
-            string caption = "Выход";
+            string caption = "Exit";
             MessageBoxButtons button = MessageBoxButtons.YesNo;
             MessageBoxIcon icon = MessageBoxIcon.Question;
             DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon,
