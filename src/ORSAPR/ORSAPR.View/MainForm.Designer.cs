@@ -273,7 +273,6 @@ namespace ORSAPR.View
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chisel Parameters";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormParameters_FormClosing);
-            this.Load += new System.EventHandler(this.FormParameters_Load);
             this.PanelWindow.ResumeLayout(false);
             this.PanelWindow.PerformLayout();
             this.ResumeLayout(false);

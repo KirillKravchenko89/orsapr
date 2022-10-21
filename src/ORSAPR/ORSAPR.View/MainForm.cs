@@ -86,20 +86,6 @@ namespace ORSAPR.View
         }
 
         /// <summary>
-        /// обработчик события загрузки формы
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FormParameters_Load(object sender, EventArgs e)
-        {
-            /* TimerNotification.Enabled = true;
-            TimerNotification.Start();*/
-            /*   LabelNotification.Text = $"Today is the birthday of:{Environment.NewLine}";*/
-
-
-        }
-
-        /// <summary>
         /// обработчик события закрытия формы
         /// </summary>
         /// <param name="sender"></param>
@@ -118,23 +104,6 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
-        }
-
-        /// <summary>
-        /// обработчик события таймера
-        /// </summary>
-        private void TimerNotification_Tick(object sender, EventArgs e)
-        {
-            /*  _timerForNotificationStartValue++;
-              if (_timerForNotificationStartValue >= 10)
-              {
-                  TimerNotification.Stop();
-                  PanelNotification.Visible = false;
-              }*/
-        }
-
-        
-
-        
+        }    
     }
 }
