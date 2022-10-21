@@ -194,7 +194,7 @@ namespace ORSAPR.View
             this.TextBoxWidth.Name = "TextBoxWidth";
             this.TextBoxWidth.Size = new System.Drawing.Size(203, 22);
             this.TextBoxWidth.TabIndex = 8;
-           /* this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBoxWidth_TextChanged);*/
+            this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBoxWidth_TextChanged);
             // 
             // LabelBladeLenght
             // 
@@ -272,8 +272,8 @@ namespace ORSAPR.View
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chisel Parameters";
-            /*this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormParameters_FormClosing);*/
-            /*this.Load += new System.EventHandler(this.FormParameters_Load);*/
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormParameters_FormClosing);
+            this.Load += new System.EventHandler(this.FormParameters_Load);
             this.PanelWindow.ResumeLayout(false);
             this.PanelWindow.PerformLayout();
             this.ResumeLayout(false);
