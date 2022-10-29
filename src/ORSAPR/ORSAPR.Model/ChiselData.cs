@@ -9,7 +9,7 @@ namespace ORSAPR.Model
     /// <summary>
     /// класс параметров зубила
     /// </summary>
-    public class Parameter
+    public class ChiselData
     {
         /// <summary>
         /// поле высоты зубила
@@ -43,8 +43,8 @@ namespace ORSAPR.Model
         {
             get => _height;
             set
-            {
-                _height = value;
+            {            
+                    _height = value;              
             }
         }
 
@@ -56,9 +56,10 @@ namespace ORSAPR.Model
             get => _lenght;
             set
             {
-                _lenght = value;
+
+                _lenght = value;  
             }
-        }
+        }      
 
         /// <summary>
         /// возвращает или задает ширину
@@ -68,18 +69,29 @@ namespace ORSAPR.Model
             get => _width;
             set
             {
-                string valueString = value.ToString();
-                for (int i = 0; i < 10 ; i++)
+
+
+
+                if (Convert.ToString(value) == "1")
                 {
-                    if (double.TryParse(valueString, out var parsedNumber))
+                    throw new System.FormatException("Field of width is incorrect! " +
+                           "The width cannot start with <<,>>.");
+                }
+
+
+               /* string valueString = value.ToString();
+                for (int i = 0; i < valueString.Length; i++)
+                {
+
+                    if (char.IsPunctuation(valueString[i]))
                     {
-                        throw new Exception("Width parameter is incorrect!" +
-                           " Width has unacceptable symbols!" +
-                           " This field cannot contain letters or symbols");
+
+                        throw new System.FormatException("Field of width is incorrect! " +
+                            "The width cannot start with <<,>>.");
                     }
 
-
-                }
+                    
+                }*/
                 _width = value;
             }
         }
