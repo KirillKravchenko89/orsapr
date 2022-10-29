@@ -10,3 +10,4 @@ C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAP
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.Properties.Resources.resources
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.exe
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.pdb
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.CopyComplete
