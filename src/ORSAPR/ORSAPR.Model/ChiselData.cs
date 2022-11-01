@@ -37,14 +37,24 @@ namespace ORSAPR.Model
         private double _bladeLenght;
 
         /// <summary>
-        /// возвращает или задает высоту
+        /// возвращает или задает ширину
         /// </summary>
-        public double Height
+        public double Width
         {
-            get => _height;
+            get => _width;
             set
-            {            
-                    _height = value;              
+            {              
+                if (value == 0)
+                {
+                    _width = value;
+                    throw new ArgumentException("Invalid chisel width range. Сannot be width = 0!");
+                }
+                if (value < 10 || value > 30)
+                {                 
+                    throw new ArgumentException("Invalid chisel width range, please check the" +
+                    " entered parameters according to the range: 10mm >= W >= 30mm.");
+                }
+                _width = value;
             }
         }
 
@@ -55,46 +65,67 @@ namespace ORSAPR.Model
         {
             get => _lenght;
             set
-            {
-
-                _lenght = value;  
-            }
-        }      
-
-        /// <summary>
-        /// возвращает или задает ширину
-        /// </summary>
-        public double Width
-        {
-            get => _width;
-            set
-            {
-
-
-
-                if (Convert.ToString(value) == "1")
-                {
-                    throw new System.FormatException("Field of width is incorrect! " +
-                           "The width cannot start with <<,>>.");
+            {               
+                if (value == 0)
+                {                 
+                    throw new ArgumentException("Invalid chisel lenght range." +
+                        " Сannot be length = 0!");
                 }
-
-
-               /* string valueString = value.ToString();
-                for (int i = 0; i < valueString.Length; i++)
+                if (value < 100 || value > 300)
                 {
-
-                    if (char.IsPunctuation(valueString[i]))
+                    throw new ArgumentException("Invalid chisel lenght range, please check " +
+                        "the entered parameters according to the range: 100mm >= L >= 300mm.");
+                }
+                else if (value > 100 || value < 300)
+                {
+                    if(_width !=0 && (_width > 10 || _width < 30))
                     {
-
-                        throw new System.FormatException("Field of width is incorrect! " +
-                            "The width cannot start with <<,>>.");
-                    }
-
-                    
-                }*/
-                _width = value;
+                        if (value < 10 * _width || value >= 10 * _width + 10)
+                        {
+                            throw new ArgumentException($"Invalid chisel lenght range," +
+                                $" please check the entered parameters according to the range:" +
+                            $" {10 * _width}mm <= L < {10 * _width + 10}mm.");
+                        }
+                    }                   
+                }               
+                _lenght = value;
             }
         }
+
+        /// <summary>
+        /// возвращает или задает высоту
+        /// </summary>
+        public double Height
+        {
+            get => _height;
+            set
+            {
+                if (value == 0)
+                {                   
+                    throw new ArgumentException("Invalid chisel height range." +
+                        " Сannot be height = 0!");
+                }
+                if (value < 6 || value > 24)
+                {
+                    throw new ArgumentException("Invalid chisel height range, please check " +
+                        "the entered parameters according to the range: 6mm >= H >= 24mm.");
+                }
+                else if (value > 6 || value < 24)
+                {
+                    if (_width != 0 && (_width > 10 || _width < 30))
+                    {
+                        if (value < 0.6 * _width || value > 0.8 * _width)
+                        {
+                            throw new ArgumentException($"Invalid chisel height range, please check the" +
+                                $" entered parameters according to the range:" +
+                                $" {0.6 * _width}mm <= H <= {0.8 * _width}mm.");
+                        }
+                    }
+                }
+                _height = value;                                          
+            }
+        }
+        
 
         /// <summary>
         /// возвращает или задает длину внутреннего выреза зубила

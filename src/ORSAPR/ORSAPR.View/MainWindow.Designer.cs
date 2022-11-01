@@ -41,7 +41,7 @@ namespace ORSAPR.View
             this.LabelLoadCompas = new System.Windows.Forms.Label();
             this.LabelCompasApp = new System.Windows.Forms.Label();
             this.LabelParameter = new System.Windows.Forms.Label();
-            this.TextBoxLenght = new System.Windows.Forms.TextBox();
+            this.TextBoxLength = new System.Windows.Forms.TextBox();
             this.Buttonbuild = new System.Windows.Forms.Button();
             this.TextBoxHeight = new System.Windows.Forms.TextBox();
             this.TextBoxInnerLenght = new System.Windows.Forms.TextBox();
@@ -70,7 +70,7 @@ namespace ORSAPR.View
             this.PanelWindow.Controls.Add(this.LabelLoadCompas);
             this.PanelWindow.Controls.Add(this.LabelCompasApp);
             this.PanelWindow.Controls.Add(this.LabelParameter);
-            this.PanelWindow.Controls.Add(this.TextBoxLenght);
+            this.PanelWindow.Controls.Add(this.TextBoxLength);
             this.PanelWindow.Controls.Add(this.Buttonbuild);
             this.PanelWindow.Controls.Add(this.TextBoxHeight);
             this.PanelWindow.Controls.Add(this.TextBoxInnerLenght);
@@ -111,7 +111,7 @@ namespace ORSAPR.View
             this.textBox1.Location = new System.Drawing.Point(236, 522);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(203, 22);
-            this.textBox1.TabIndex = 18;
+            this.textBox1.TabIndex = 5;
             // 
             // ButtonUnloadCompas
             // 
@@ -129,6 +129,7 @@ namespace ORSAPR.View
             // 
             this.ButtonLoadCompas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonLoadCompas.Enabled = false;
             this.ButtonLoadCompas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ButtonLoadCompas.Location = new System.Drawing.Point(292, 187);
             this.ButtonLoadCompas.Name = "ButtonLoadCompas";
@@ -183,13 +184,16 @@ namespace ORSAPR.View
             this.LabelParameter.TabIndex = 12;
             this.LabelParameter.Text = "Tool Options";
             // 
-            // TextBoxLenght
+            // TextBoxLength
             // 
-            this.TextBoxLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxLenght.Location = new System.Drawing.Point(236, 362);
-            this.TextBoxLenght.Name = "TextBoxLenght";
-            this.TextBoxLenght.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxLenght.TabIndex = 7;
+            this.TextBoxLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBoxLength.Location = new System.Drawing.Point(236, 362);
+            this.TextBoxLength.Name = "TextBoxLength";
+            this.TextBoxLength.Size = new System.Drawing.Size(203, 22);
+            this.TextBoxLength.TabIndex = 1;
+            this.TextBoxLength.TextChanged += new System.EventHandler(this.TextBoxLenght_TextChanged);
+            this.TextBoxLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxLenght_KeyPress);
+            this.TextBoxLength.Leave += new System.EventHandler(this.TextBoxLenght_Leave);
             // 
             // Buttonbuild
             // 
@@ -207,10 +211,13 @@ namespace ORSAPR.View
             // TextBoxHeight
             // 
             this.TextBoxHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxHeight.Location = new System.Drawing.Point(236, 322);
+            this.TextBoxHeight.Location = new System.Drawing.Point(236, 402);
             this.TextBoxHeight.Name = "TextBoxHeight";
             this.TextBoxHeight.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxHeight.TabIndex = 6;
+            this.TextBoxHeight.TabIndex = 2;
+            this.TextBoxHeight.TextChanged += new System.EventHandler(this.TextBoxHeight_TextChanged);
+            this.TextBoxHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxHeight_KeyPress);
+            this.TextBoxHeight.Leave += new System.EventHandler(this.TextBoxHeight_Leave);
             // 
             // TextBoxInnerLenght
             // 
@@ -218,15 +225,15 @@ namespace ORSAPR.View
             this.TextBoxInnerLenght.Location = new System.Drawing.Point(236, 482);
             this.TextBoxInnerLenght.Name = "TextBoxInnerLenght";
             this.TextBoxInnerLenght.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxInnerLenght.TabIndex = 10;
+            this.TextBoxInnerLenght.TabIndex = 4;
             // 
             // TextBoxWidth
             // 
             this.TextBoxWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxWidth.Location = new System.Drawing.Point(236, 402);
+            this.TextBoxWidth.Location = new System.Drawing.Point(236, 322);
             this.TextBoxWidth.Name = "TextBoxWidth";
             this.TextBoxWidth.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxWidth.TabIndex = 8;
+            this.TextBoxWidth.TabIndex = 0;
             this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBoxWidth_TextChanged);
             this.TextBoxWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxWidth_KeyPress);
             this.TextBoxWidth.Leave += new System.EventHandler(this.TextBoxWidth_Leave);
@@ -248,7 +255,7 @@ namespace ORSAPR.View
             this.TextBoxBladeLenght.Location = new System.Drawing.Point(236, 442);
             this.TextBoxBladeLenght.Name = "TextBoxBladeLenght";
             this.TextBoxBladeLenght.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxBladeLenght.TabIndex = 9;
+            this.TextBoxBladeLenght.TabIndex = 3;
             // 
             // LabelInnerLenght
             // 
@@ -266,7 +273,7 @@ namespace ORSAPR.View
             this.LabelHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelHeight.AutoSize = true;
             this.LabelHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelHeight.Location = new System.Drawing.Point(27, 323);
+            this.LabelHeight.Location = new System.Drawing.Point(27, 403);
             this.LabelHeight.Name = "LabelHeight";
             this.LabelHeight.Size = new System.Drawing.Size(116, 18);
             this.LabelHeight.TabIndex = 3;
@@ -288,7 +295,7 @@ namespace ORSAPR.View
             this.LabelWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelWidth.AutoSize = true;
             this.LabelWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelWidth.Location = new System.Drawing.Point(27, 403);
+            this.LabelWidth.Location = new System.Drawing.Point(27, 323);
             this.LabelWidth.Name = "LabelWidth";
             this.LabelWidth.Size = new System.Drawing.Size(115, 18);
             this.LabelWidth.TabIndex = 1;
@@ -303,7 +310,7 @@ namespace ORSAPR.View
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(491, 700);
-            this.MinimumSize = new System.Drawing.Size(491, 680);
+            this.MinimumSize = new System.Drawing.Size(491, 700);
             this.Name = "FormParameters";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -324,7 +331,7 @@ namespace ORSAPR.View
         private System.Windows.Forms.Label LabelLoadCompas;
         private System.Windows.Forms.Label LabelCompasApp;
         private System.Windows.Forms.Label LabelParameter;
-        private System.Windows.Forms.TextBox TextBoxLenght;
+        private System.Windows.Forms.TextBox TextBoxLength;
         private System.Windows.Forms.Button Buttonbuild;
         private System.Windows.Forms.TextBox TextBoxHeight;
         private System.Windows.Forms.TextBox TextBoxInnerLenght;

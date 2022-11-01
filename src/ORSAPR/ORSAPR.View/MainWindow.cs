@@ -90,20 +90,43 @@ namespace ORSAPR.View
                 textBox.Clear();
                 textBox.AppendText(str.Replace(".", ","));
 
-            }
+            }            
         }
 
         /// <summary>
         /// вывод после ошибки сообщения в тултип 
         /// </summary>
         /// <param name="exception"></param>
-        private void OutputAfterErrorTextBox(TextBox textBox, string errorMessage, Exception exception)
+        private void OutputAfterErrorTextBox(TextBox textBox,
+            Exception exception)
         {
             textBox.BackColor = _errorColor;
-            errorMessage = exception.Message;
+            var errorMessage = exception.Message;
+            ExceptionController(errorMessage, textBox);
             toolTipInformation.SetToolTip(textBox, errorMessage);
         }
      
+        /// <summary>
+        /// функция сохранения строки ошибки
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <param name="textBox"></param>
+        private void ExceptionController(string errorMessage, TextBox textBox)
+        {
+            if (textBox == TextBoxWidth)
+            {
+                _errorTextBoxWidth = errorMessage;
+            }
+            if (textBox == TextBoxLength)
+            {
+                _errorTextBoxLength = errorMessage;
+            }
+            if (textBox == TextBoxHeight) 
+            {
+                _errorTextBoxHeight = errorMessage;
+            }       
+        }
+
         /// <summary>
         /// функция одбработчик ввода запятой первым символом
         /// </summary>
@@ -132,7 +155,10 @@ namespace ORSAPR.View
                     textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
                 }
             }
-            textBox.Text = textBox.Text.TrimStart('0');
+            if (!Convert.ToString(textBox.Text).Equals("0"))
+            {
+                textBox.Text = textBox.Text.TrimStart('0');
+            }           
         }
 
         /// <summary>
@@ -142,11 +168,13 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         /// <param name="textBox"></param>
         private void IfKeyPress(KeyPressEventArgs e, TextBox textBox)
-        {
-            if (Char.IsNumber(e.KeyChar) | ((e.KeyChar == Convert.ToChar(",")) &&
-            !textBox.Text.Contains(",")) | e.KeyChar == '\b')
-            {
-               return;
+        {          
+            if (Char.IsNumber(e.KeyChar) | (((e.KeyChar == Convert.ToChar(","))
+                || (e.KeyChar == Convert.ToChar("."))) && !textBox.Text.Contains(","))
+                | e.KeyChar == '\b' | e.KeyChar == (char)3 | e.KeyChar == (char)22
+                | e.KeyChar == (char)1 | e.KeyChar == (char)24)
+            {              
+                return;
             }
             else e.Handled = true;
         }
@@ -156,29 +184,33 @@ namespace ORSAPR.View
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="errorMessage"></param>
-        private void IfTextBoxTextChanged(TextBox textBox, string errorMessage)
+        private void IfTextBoxTextChanged(TextBox textBox, string errorMessage, double chiselData)
         {
             try
             {
                 PointValidation(textBox);
-
-                if (textBox.Text == string.Empty)
+                StartsWithComma(textBox);
+                ReloadChiselData(textBox, chiselData);
+                if (textBox.Text == "")
                 {
-                    textBox.BackColor = _emptyColor;
+                    textBox.BackColor = _emptyColor;                                
                 }
                 else
                 {
-                    ReloadChiselData();
                     textBox.BackColor = _trueColor;
-                    toolTipInformation.SetToolTip(textBox, string.Empty);
-                    errorMessage = string.Empty;
                 }
-            }
-            catch (System.FormatException exception)
+                ExceptionController(errorMessage, textBox);
+                toolTipInformation.SetToolTip(textBox, string.Empty);
+                errorMessage = string.Empty;               
+            }          
+            catch (ArgumentException exception)
             {
-                OutputAfterErrorTextBox(textBox, errorMessage, exception);
+                OutputAfterErrorTextBox(textBox, exception);
             }
-            StartsWithComma(textBox);
+            catch (Exception exception)
+            {
+                OutputAfterErrorTextBox(textBox, exception);
+            }
         }
 
         /// <summary>
@@ -194,18 +226,48 @@ namespace ORSAPR.View
             }
             catch (ArgumentException exception)
             {
-                OutputAfterErrorTextBox(textBox, errorMessage, exception);
+                OutputAfterErrorTextBox(textBox, exception);
             }
         }
 
         /// <summary>
         /// функция обновления данных фигуры
         /// </summary>
-        private void ReloadChiselData()
+        private void ReloadChiselData(TextBox textBox, double chuselData)
         {
-            _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);
+            if ((chuselData == _chiselData.Width) && (textBox == TextBoxWidth) &&
+                TextBoxWidth.Text != string.Empty)
+            {              
+                _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);                                   
+            }
+          
+            if ((chuselData == _chiselData.Lenght) && (textBox == TextBoxLength) &&
+                TextBoxLength.Text != string.Empty)
+            {              
+                _chiselData.Lenght = Convert.ToDouble(TextBoxLength.Text);                             
+            }
+           
+            if ((chuselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
+                TextBoxHeight.Text != string.Empty)
+            {              
+                _chiselData.Height = Convert.ToDouble(TextBoxHeight.Text);      
+            } 
+           
         }
       
+        /// <summary>
+        /// функция проверки правильности введенных данных во всех полях при изменении одного
+        /// </summary>
+        private void CheckAffterInput()
+        {
+           string errorMessage = string.Empty;
+            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
+            IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
+            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Lenght);
+        }       
+
+
+
 
 
 
@@ -227,7 +289,8 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxWidth_TextChanged(object sender, EventArgs e)
         {
-            IfTextBoxTextChanged(TextBoxWidth, _errorTextBoxWidth);
+            IfTextBoxTextChanged(TextBoxWidth, _errorTextBoxWidth, _chiselData.Width);
+            CheckAffterInput();
         }
     
         /// <summary>
@@ -238,10 +301,60 @@ namespace ORSAPR.View
         private void TextBoxWidth_Leave(object sender, EventArgs e)
         {
             IfTextBoxLeave(TextBoxWidth, _errorTextBoxWidth);
+            CheckAffterInput();
         }
 
 
-        
+
+
+
+
+
+        private void TextBoxHeight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxHeight);
+        }
+
+        private void TextBoxHeight_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxHeight, _errorTextBoxHeight, _chiselData.Height);
+            CheckAffterInput();
+        }
+
+        private void TextBoxHeight_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxHeight, _errorTextBoxHeight);
+            CheckAffterInput();
+        }
+
+
+
+
+
+
+
+
+        private void TextBoxLenght_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxLength);
+        }
+
+        private void TextBoxLenght_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxLength, _errorTextBoxLength, _chiselData.Lenght);
+            CheckAffterInput();
+        }
+
+        private void TextBoxLenght_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxLength, _errorTextBoxLength);
+            CheckAffterInput();
+        }
+
+
+
+
+
 
 
 
@@ -249,10 +362,71 @@ namespace ORSAPR.View
 
         private void Buttonbuild_Click(object sender, EventArgs e)
         {
-            TextBoxBladeLenght.Text = Convert.ToString(_chiselData.Width);
+            TextBoxBladeLenght.Text = Convert.ToString(_chiselData.Width);//
+            TextBoxInnerLenght.Text = Convert.ToString(_chiselData.Height);//
+
+            var MessageText = string.Empty;
+            var errorText = string.Empty;
+
+            if ((_chiselData.Width != 0 || _chiselData.Lenght != 0
+               || _chiselData.Height != 0) && (_errorTextBoxWidth == "" && _errorTextBoxLength == ""
+                && _errorTextBoxHeight == ""))// общие ошибки 
+            {
+                MessageText += $" Parameters of chisel: {Environment.NewLine}";
+
+                if (_chiselData.Width != 0)// индивидуальная ошибка фамилии
+                {
+                    MessageText += $" - Width: {Convert.ToString(_chiselData.Width)}{Environment.NewLine}";
+                }
+                if (_chiselData.Lenght != 0)  // индивидуальная ошибка имени
+                {
+                    MessageText += $" - Length: {Convert.ToString(_chiselData.Lenght)}{Environment.NewLine}";
+                }
+                if (_chiselData.Height != 0)  // индивидуальная ошибка номера
+                {
+                    MessageText += $" - Height: {Convert.ToString(_chiselData.Height)}{Environment.NewLine}";
+                }
+
+                if (MessageText != string.Empty) //Вывод данных при отсутствии ошибок ИЛИ вывод ошибок
+                {
+                    string caption = "Message!";
+                    MessageBoxButtons button = MessageBoxButtons.OK;
+                    MessageBoxIcon icon = MessageBoxIcon.Information;
+                    MessageBox.Show(MessageText, caption, button, icon,
+                    MessageBoxDefaultButton.Button1);
+                }
+            }
+            if (_errorTextBoxWidth != "" || _errorTextBoxLength != ""
+                || _errorTextBoxHeight != "")
+            {
+                errorText += $"Some errors on form: {Environment.NewLine}";
+
+                if (_errorTextBoxWidth != "")// индивидуальная ошибка фамилии
+                {
+                    errorText += $" - Width: {_errorTextBoxWidth}{Environment.NewLine}";
+                }
+                if (_errorTextBoxLength != "")  // индивидуальная ошибка имени
+                {
+                    errorText += $" - Length: {_errorTextBoxLength}{Environment.NewLine}";
+                }
+                if (_errorTextBoxHeight != "")  // индивидуальная ошибка номера
+                {
+                    errorText += $" - Height: {_errorTextBoxHeight}{Environment.NewLine}";
+                }
+
+                if (errorText != string.Empty)
+                {
+                    string caption = "Error!";
+                    MessageBoxButtons button = MessageBoxButtons.OK;
+                    MessageBoxIcon icon = MessageBoxIcon.Error;
+                    MessageBox.Show(errorText, caption, button, icon,
+                    MessageBoxDefaultButton.Button1);
+                }
+
+            }
+            
+
         }
-
-
 
 
 
@@ -279,6 +453,8 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
-        }     
+        }
+
+      
     }
 }
