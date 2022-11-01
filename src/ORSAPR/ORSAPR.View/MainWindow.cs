@@ -14,9 +14,9 @@ namespace ORSAPR.View
     public partial class FormParameters : System.Windows.Forms.Form
     {
         /// <summary>
-        /// переменная ошибки ввода параметра высоты
+        /// переменная ошибки ввода параметра ширины
         /// </summary>
-        private string _errorTextBoxHeight = string.Empty;
+        private string _errorTextBoxWidth = string.Empty;
 
         /// <summary>
         /// переменная ошибки ввода параметра длины
@@ -24,19 +24,24 @@ namespace ORSAPR.View
         private string _errorTextBoxLength = string.Empty;
 
         /// <summary>
-        /// переменная ошибки ввода параметра ширины
+        /// переменная ошибки ввода параметра высоты
         /// </summary>
-        private string _errorTextBoxWidth = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра внутренней длины выреза
-        /// </summary>
-        private string _errorTextBoxInnerLenght = string.Empty;
+        private string _errorTextBoxHeight = string.Empty;
 
         /// <summary>
         /// переменная ошибки ввода параметра длины лезвия
         /// </summary>
-        private string _errorTextBoxBladeLenght = string.Empty;
+        private string _errorTextBoxBladeLength = string.Empty;
+
+        /// <summary>
+        /// переменная ошибки ввода параметра внутренней длины выреза
+        /// </summary>
+        private string _errorTextBoxInnerLength = string.Empty;
+
+        /// <summary>
+        /// переменная ошибки ввода параметра внутренней ширины выреза
+        /// </summary>
+        private string _errorTextBoxInnerWidth = string.Empty;
 
         /// <summary>
         /// переменная цвета поля ошибки
@@ -57,8 +62,8 @@ namespace ORSAPR.View
         /// выделение памяти под объект параметра
         /// </summary>
         private ChiselData _chiselData = new ChiselData();
-
-        public FormParameters()
+        
+    public FormParameters()
         {
             InitializeComponent();
         }
@@ -124,7 +129,19 @@ namespace ORSAPR.View
             if (textBox == TextBoxHeight) 
             {
                 _errorTextBoxHeight = errorMessage;
-            }       
+            }
+            if (textBox == TextBoxBladeLength)
+            {
+                _errorTextBoxBladeLength = errorMessage;
+            }
+            if (textBox == TextBoxInnerLength)
+            {
+                _errorTextBoxInnerLength = errorMessage;
+            }
+            if (textBox == TextBoxInnerWidth)
+            {
+                _errorTextBoxInnerWidth = errorMessage;
+            }
         }
 
         /// <summary>
@@ -168,7 +185,15 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         /// <param name="textBox"></param>
         private void IfKeyPress(KeyPressEventArgs e, TextBox textBox)
-        {          
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{Tab}");
+            }
+            if (e.KeyChar == (char)Keys.Space)
+            {
+                Buttonbuild_Click(null, null);                
+            }          
             if (Char.IsNumber(e.KeyChar) | (((e.KeyChar == Convert.ToChar(","))
                 || (e.KeyChar == Convert.ToChar("."))) && !textBox.Text.Contains(","))
                 | e.KeyChar == '\b' | e.KeyChar == (char)3 | e.KeyChar == (char)22
@@ -241,18 +266,36 @@ namespace ORSAPR.View
                 _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);                                   
             }
           
-            if ((chuselData == _chiselData.Lenght) && (textBox == TextBoxLength) &&
+            if ((chuselData == _chiselData.Length) && (textBox == TextBoxLength) &&
                 TextBoxLength.Text != string.Empty)
             {              
-                _chiselData.Lenght = Convert.ToDouble(TextBoxLength.Text);                             
+                _chiselData.Length = Convert.ToDouble(TextBoxLength.Text);                             
             }
            
             if ((chuselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
                 TextBoxHeight.Text != string.Empty)
             {              
                 _chiselData.Height = Convert.ToDouble(TextBoxHeight.Text);      
-            } 
-           
+            }
+
+            if ((chuselData == _chiselData.BladeLength) && (textBox == TextBoxBladeLength) &&
+               TextBoxBladeLength.Text != string.Empty)
+            {
+                _chiselData.BladeLength = Convert.ToDouble(TextBoxBladeLength.Text);
+            }
+
+            if ((chuselData == _chiselData.InnerLength) && (textBox == TextBoxInnerLength) &&
+                TextBoxInnerLength.Text != string.Empty)
+            {
+                _chiselData.InnerLength = Convert.ToDouble(TextBoxInnerLength.Text);
+            }
+
+            if ((chuselData == _chiselData.InnerWidth) && (textBox == TextBoxInnerWidth) &&
+                TextBoxInnerWidth.Text != string.Empty)
+            {
+                _chiselData.InnerWidth = Convert.ToDouble(TextBoxInnerWidth.Text);
+            }
+
         }
       
         /// <summary>
@@ -263,14 +306,11 @@ namespace ORSAPR.View
            string errorMessage = string.Empty;
             IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
             IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
-            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Lenght);
-        }       
-
-
-
-
-
-
+            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
+            IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
+            IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
+            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
+        }
 
         /// <summary>
         /// обработчик события нажатия на клавишу в текстбоксе ширины
@@ -294,7 +334,7 @@ namespace ORSAPR.View
         }
     
         /// <summary>
-        /// обработчик события выхода из текстбокса
+        /// обработчик события выхода из текстбокса ширины
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -304,90 +344,218 @@ namespace ORSAPR.View
             CheckAffterInput();
         }
 
-
-
-
-
-
-
-        private void TextBoxHeight_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            IfKeyPress(e, TextBoxHeight);
-        }
-
-        private void TextBoxHeight_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxHeight, _errorTextBoxHeight, _chiselData.Height);
-            CheckAffterInput();
-        }
-
-        private void TextBoxHeight_Leave(object sender, EventArgs e)
-        {
-            IfTextBoxLeave(TextBoxHeight, _errorTextBoxHeight);
-            CheckAffterInput();
-        }
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// обработчик события нажатия на клавишу в текстбоксе длины
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxLenght_KeyPress(object sender, KeyPressEventArgs e)
         {
-            IfKeyPress(e, TextBoxLength);
+            IfKeyPress(e, TextBoxLength);          
         }
 
+        /// <summary>
+        /// обработчик события изменения текста в текстбоксе длины
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxLenght_TextChanged(object sender, EventArgs e)
         {
-            IfTextBoxTextChanged(TextBoxLength, _errorTextBoxLength, _chiselData.Lenght);
+            IfTextBoxTextChanged(TextBoxLength, _errorTextBoxLength, _chiselData.Length);
             CheckAffterInput();
         }
 
+        /// <summary>
+        /// обработчик события выхода из текстбокса длины
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBoxLenght_Leave(object sender, EventArgs e)
         {
             IfTextBoxLeave(TextBoxLength, _errorTextBoxLength);
             CheckAffterInput();
         }
 
+        /// <summary>
+        /// обработчик события нажатия на клавишу в текстбоксе высоты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxHeight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxHeight);
+        }
 
+        /// <summary>
+        /// обработчик события изменения текста в текстбоксе высоты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxHeight_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxHeight, _errorTextBoxHeight, _chiselData.Height);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обработчик события выхода из текстбокса высоты
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxHeight_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxHeight, _errorTextBoxHeight);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обработчик события нажатия на клавишу в текстбоксе длины лезвия
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxBladeLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxBladeLength);
+        }
 
+        /// <summary>
+        /// обработчик события изменения текста в текстбоксе длины лезвия
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxBladeLength_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxBladeLength, _errorTextBoxBladeLength,
+                _chiselData.BladeLength);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обработчик события выхода из текстбокса длины лезвия
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxBladeLength_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxBladeLength, _errorTextBoxBladeLength);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обработчик события нажатия на клавишу в текстбоксе длины внутреннего выреза 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxInnerLength);
+        }
 
+        /// <summary>
+        /// обрабочик события изменения текста в текстбоксе длины внутреннего выреза
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerLength_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxInnerLength, _errorTextBoxInnerLength,
+                _chiselData.InnerLength);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обрабочик события выхода из текстбокса длины внутреннего выреза
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerLength_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxInnerLength, _errorTextBoxInnerLength);
+            CheckAffterInput();
+        }
 
+        /// <summary>
+        /// обработчик события нажатия на клавишу в текстбоксе ширины внутреннего выреза
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerWidth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IfKeyPress(e, TextBoxInnerWidth);
+        }
+
+        /// <summary>
+        /// обработчик события изменения текста в текстбоксе ширины внутреннего выреза 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerWidth_TextChanged(object sender, EventArgs e)
+        {
+            IfTextBoxTextChanged(TextBoxInnerWidth, _errorTextBoxInnerWidth,
+                _chiselData.InnerWidth);
+            CheckAffterInput();
+        }
+
+        /// <summary>
+        /// обработчик события выхода из текстбокса ширины внутреннего выреза
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBoxInnerWidth_Leave(object sender, EventArgs e)
+        {
+            IfTextBoxLeave(TextBoxInnerWidth, _errorTextBoxInnerWidth);
+            CheckAffterInput();
+        }
+        /// <summary>
+        /// обработчик события нажатия на кнопку "построить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Buttonbuild_Click(object sender, EventArgs e)
         {
-            TextBoxBladeLenght.Text = Convert.ToString(_chiselData.Width);//
-            TextBoxInnerLenght.Text = Convert.ToString(_chiselData.Height);//
-
             var MessageText = string.Empty;
             var errorText = string.Empty;
 
-            if ((_chiselData.Width != 0 || _chiselData.Lenght != 0
-               || _chiselData.Height != 0) && (_errorTextBoxWidth == "" && _errorTextBoxLength == ""
-                && _errorTextBoxHeight == ""))// общие ошибки 
+            if ((_chiselData.Width != 0 || _chiselData.Length != 0 || _chiselData.Height != 0
+                || _chiselData.BladeLength != 0 || _chiselData.InnerLength != 0 
+                || _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
+                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
+                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
+                && _errorTextBoxInnerWidth == ""))
             {
                 MessageText += $" Parameters of chisel: {Environment.NewLine}";
 
-                if (_chiselData.Width != 0)// индивидуальная ошибка фамилии
+                if (_chiselData.Width != 0)
                 {
-                    MessageText += $" - Width: {Convert.ToString(_chiselData.Width)}{Environment.NewLine}";
+                    MessageText += $" - W - Width: {Convert.ToString(_chiselData.Width)}" +
+                        $"{Environment.NewLine}";
                 }
-                if (_chiselData.Lenght != 0)  // индивидуальная ошибка имени
+                if (_chiselData.Length != 0) 
                 {
-                    MessageText += $" - Length: {Convert.ToString(_chiselData.Lenght)}{Environment.NewLine}";
+                    MessageText += $" - L - Length: {Convert.ToString(_chiselData.Length)}" +
+                        $"{Environment.NewLine}";
                 }
-                if (_chiselData.Height != 0)  // индивидуальная ошибка номера
+                if (_chiselData.Height != 0) 
                 {
-                    MessageText += $" - Height: {Convert.ToString(_chiselData.Height)}{Environment.NewLine}";
+                    MessageText += $" - H - Height: {Convert.ToString(_chiselData.Height)}" +
+                        $"{Environment.NewLine}";
                 }
-
-                if (MessageText != string.Empty) //Вывод данных при отсутствии ошибок ИЛИ вывод ошибок
+                if (_chiselData.BladeLength != 0)
+                {
+                    MessageText += $" - l1 - Blade Leigth:" +
+                        $" {Convert.ToString(_chiselData.BladeLength)}{Environment.NewLine}";
+                }
+                if (_chiselData.InnerLength != 0)
+                {
+                    MessageText += $" - l2 - Inner Cutout Length:" +
+                        $" {Convert.ToString(_chiselData.InnerLength)}{Environment.NewLine}";
+                }
+                if (_chiselData.InnerWidth != 0)
+                {
+                    MessageText += $" - w1 - Inner Cutout Width:" +
+                        $" {Convert.ToString(_chiselData.InnerWidth)}{Environment.NewLine}";
+                }
+                if (MessageText != string.Empty) 
                 {
                     string caption = "Message!";
                     MessageBoxButtons button = MessageBoxButtons.OK;
@@ -397,21 +565,37 @@ namespace ORSAPR.View
                 }
             }
             if (_errorTextBoxWidth != "" || _errorTextBoxLength != ""
-                || _errorTextBoxHeight != "")
+                || _errorTextBoxHeight != "" || _errorTextBoxBladeLength != ""
+                || _errorTextBoxInnerLength != "" || _errorTextBoxInnerWidth != "")
             {
                 errorText += $"Some errors on form: {Environment.NewLine}";
 
-                if (_errorTextBoxWidth != "")// индивидуальная ошибка фамилии
+                if (_errorTextBoxWidth != "")
                 {
-                    errorText += $" - Width: {_errorTextBoxWidth}{Environment.NewLine}";
+                    errorText += $" - W - Width: {_errorTextBoxWidth}{Environment.NewLine}";
                 }
-                if (_errorTextBoxLength != "")  // индивидуальная ошибка имени
+                if (_errorTextBoxLength != "")
                 {
-                    errorText += $" - Length: {_errorTextBoxLength}{Environment.NewLine}";
+                    errorText += $" - L - Length: {_errorTextBoxLength}{Environment.NewLine}";
                 }
-                if (_errorTextBoxHeight != "")  // индивидуальная ошибка номера
+                if (_errorTextBoxHeight != "")
                 {
-                    errorText += $" - Height: {_errorTextBoxHeight}{Environment.NewLine}";
+                    errorText += $" - H - Height: {_errorTextBoxHeight}{Environment.NewLine}";
+                }
+                if (_errorTextBoxBladeLength != "")
+                {
+                    errorText += $" - l1 - Blade Length: " +
+                        $"{_errorTextBoxBladeLength}{Environment.NewLine}";
+                }
+                if (_errorTextBoxInnerLength != "")
+                {
+                    errorText += $" - l2 - Inner Length: " +
+                        $"{_errorTextBoxInnerLength}{Environment.NewLine}";
+                }
+                if (_errorTextBoxInnerWidth != "")
+                {
+                    errorText += $" - w1 - Inner Width: " +
+                        $"{_errorTextBoxInnerWidth}{Environment.NewLine}";
                 }
 
                 if (errorText != string.Empty)
@@ -422,17 +606,8 @@ namespace ORSAPR.View
                     MessageBox.Show(errorText, caption, button, icon,
                     MessageBoxDefaultButton.Button1);
                 }
-
-            }
-            
-
+            }      
         }
-
-
-
-
-
-
 
         /// <summary>
         /// обработчик события закрытия формы
@@ -453,8 +628,6 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
-        }
-
-      
+        }     
     }
 }

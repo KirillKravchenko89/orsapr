@@ -34,7 +34,7 @@ namespace ORSAPR.View
             this.PanelWindow = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LabelInnerWidth = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TextBoxInnerWidth = new System.Windows.Forms.TextBox();
             this.ButtonUnloadCompas = new System.Windows.Forms.Button();
             this.ButtonLoadCompas = new System.Windows.Forms.Button();
             this.LabelUnloadCompas = new System.Windows.Forms.Label();
@@ -44,13 +44,13 @@ namespace ORSAPR.View
             this.TextBoxLength = new System.Windows.Forms.TextBox();
             this.Buttonbuild = new System.Windows.Forms.Button();
             this.TextBoxHeight = new System.Windows.Forms.TextBox();
-            this.TextBoxInnerLenght = new System.Windows.Forms.TextBox();
+            this.TextBoxInnerLength = new System.Windows.Forms.TextBox();
             this.TextBoxWidth = new System.Windows.Forms.TextBox();
-            this.LabelBladeLenght = new System.Windows.Forms.Label();
-            this.TextBoxBladeLenght = new System.Windows.Forms.TextBox();
-            this.LabelInnerLenght = new System.Windows.Forms.Label();
+            this.LabelBladeLength = new System.Windows.Forms.Label();
+            this.TextBoxBladeLength = new System.Windows.Forms.TextBox();
+            this.LabelInnerLength = new System.Windows.Forms.Label();
             this.LabelHeight = new System.Windows.Forms.Label();
-            this.LabelLenght = new System.Windows.Forms.Label();
+            this.LabelLength = new System.Windows.Forms.Label();
             this.LabelWidth = new System.Windows.Forms.Label();
             this.toolTipInformation = new System.Windows.Forms.ToolTip(this.components);
             this.PanelWindow.SuspendLayout();
@@ -63,7 +63,7 @@ namespace ORSAPR.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelWindow.Controls.Add(this.panel1);
             this.PanelWindow.Controls.Add(this.LabelInnerWidth);
-            this.PanelWindow.Controls.Add(this.textBox1);
+            this.PanelWindow.Controls.Add(this.TextBoxInnerWidth);
             this.PanelWindow.Controls.Add(this.ButtonUnloadCompas);
             this.PanelWindow.Controls.Add(this.ButtonLoadCompas);
             this.PanelWindow.Controls.Add(this.LabelUnloadCompas);
@@ -73,13 +73,13 @@ namespace ORSAPR.View
             this.PanelWindow.Controls.Add(this.TextBoxLength);
             this.PanelWindow.Controls.Add(this.Buttonbuild);
             this.PanelWindow.Controls.Add(this.TextBoxHeight);
-            this.PanelWindow.Controls.Add(this.TextBoxInnerLenght);
+            this.PanelWindow.Controls.Add(this.TextBoxInnerLength);
             this.PanelWindow.Controls.Add(this.TextBoxWidth);
-            this.PanelWindow.Controls.Add(this.LabelBladeLenght);
-            this.PanelWindow.Controls.Add(this.TextBoxBladeLenght);
-            this.PanelWindow.Controls.Add(this.LabelInnerLenght);
+            this.PanelWindow.Controls.Add(this.LabelBladeLength);
+            this.PanelWindow.Controls.Add(this.TextBoxBladeLength);
+            this.PanelWindow.Controls.Add(this.LabelInnerLength);
             this.PanelWindow.Controls.Add(this.LabelHeight);
-            this.PanelWindow.Controls.Add(this.LabelLenght);
+            this.PanelWindow.Controls.Add(this.LabelLength);
             this.PanelWindow.Controls.Add(this.LabelWidth);
             this.PanelWindow.Location = new System.Drawing.Point(12, 12);
             this.PanelWindow.MaximumSize = new System.Drawing.Size(920, 1160);
@@ -106,12 +106,15 @@ namespace ORSAPR.View
             this.LabelInnerWidth.TabIndex = 19;
             this.LabelInnerWidth.Text = "w1 - Chisel cutout width";
             // 
-            // textBox1
+            // TextBoxInnerWidth
             // 
-            this.textBox1.Location = new System.Drawing.Point(236, 522);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(203, 22);
-            this.textBox1.TabIndex = 5;
+            this.TextBoxInnerWidth.Location = new System.Drawing.Point(236, 522);
+            this.TextBoxInnerWidth.Name = "TextBoxInnerWidth";
+            this.TextBoxInnerWidth.Size = new System.Drawing.Size(203, 22);
+            this.TextBoxInnerWidth.TabIndex = 5;
+            this.TextBoxInnerWidth.TextChanged += new System.EventHandler(this.TextBoxInnerWidth_TextChanged);
+            this.TextBoxInnerWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerWidth_KeyPress);
+            this.TextBoxInnerWidth.Leave += new System.EventHandler(this.TextBoxInnerWidth_Leave);
             // 
             // ButtonUnloadCompas
             // 
@@ -203,7 +206,7 @@ namespace ORSAPR.View
             this.Buttonbuild.Location = new System.Drawing.Point(180, 562);
             this.Buttonbuild.Name = "Buttonbuild";
             this.Buttonbuild.Size = new System.Drawing.Size(90, 50);
-            this.Buttonbuild.TabIndex = 11;
+            this.Buttonbuild.TabIndex = 6;
             this.Buttonbuild.Text = "build";
             this.Buttonbuild.UseVisualStyleBackColor = true;
             this.Buttonbuild.Click += new System.EventHandler(this.Buttonbuild_Click);
@@ -219,13 +222,16 @@ namespace ORSAPR.View
             this.TextBoxHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxHeight_KeyPress);
             this.TextBoxHeight.Leave += new System.EventHandler(this.TextBoxHeight_Leave);
             // 
-            // TextBoxInnerLenght
+            // TextBoxInnerLength
             // 
-            this.TextBoxInnerLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxInnerLenght.Location = new System.Drawing.Point(236, 482);
-            this.TextBoxInnerLenght.Name = "TextBoxInnerLenght";
-            this.TextBoxInnerLenght.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxInnerLenght.TabIndex = 4;
+            this.TextBoxInnerLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBoxInnerLength.Location = new System.Drawing.Point(236, 482);
+            this.TextBoxInnerLength.Name = "TextBoxInnerLength";
+            this.TextBoxInnerLength.Size = new System.Drawing.Size(203, 22);
+            this.TextBoxInnerLength.TabIndex = 4;
+            this.TextBoxInnerLength.TextChanged += new System.EventHandler(this.TextBoxInnerLength_TextChanged);
+            this.TextBoxInnerLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerLength_KeyPress);
+            this.TextBoxInnerLength.Leave += new System.EventHandler(this.TextBoxInnerLength_Leave);
             // 
             // TextBoxWidth
             // 
@@ -238,35 +244,38 @@ namespace ORSAPR.View
             this.TextBoxWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxWidth_KeyPress);
             this.TextBoxWidth.Leave += new System.EventHandler(this.TextBoxWidth_Leave);
             // 
-            // LabelBladeLenght
+            // LabelBladeLength
             // 
-            this.LabelBladeLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelBladeLenght.AutoSize = true;
-            this.LabelBladeLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelBladeLenght.Location = new System.Drawing.Point(27, 443);
-            this.LabelBladeLenght.Name = "LabelBladeLenght";
-            this.LabelBladeLenght.Size = new System.Drawing.Size(154, 18);
-            this.LabelBladeLenght.TabIndex = 5;
-            this.LabelBladeLenght.Text = "l1 – Chisel blade length";
+            this.LabelBladeLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelBladeLength.AutoSize = true;
+            this.LabelBladeLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelBladeLength.Location = new System.Drawing.Point(27, 443);
+            this.LabelBladeLength.Name = "LabelBladeLength";
+            this.LabelBladeLength.Size = new System.Drawing.Size(154, 18);
+            this.LabelBladeLength.TabIndex = 5;
+            this.LabelBladeLength.Text = "l1 – Chisel blade length";
             // 
-            // TextBoxBladeLenght
+            // TextBoxBladeLength
             // 
-            this.TextBoxBladeLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextBoxBladeLenght.Location = new System.Drawing.Point(236, 442);
-            this.TextBoxBladeLenght.Name = "TextBoxBladeLenght";
-            this.TextBoxBladeLenght.Size = new System.Drawing.Size(203, 22);
-            this.TextBoxBladeLenght.TabIndex = 3;
+            this.TextBoxBladeLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBoxBladeLength.Location = new System.Drawing.Point(236, 442);
+            this.TextBoxBladeLength.Name = "TextBoxBladeLength";
+            this.TextBoxBladeLength.Size = new System.Drawing.Size(203, 22);
+            this.TextBoxBladeLength.TabIndex = 3;
+            this.TextBoxBladeLength.TextChanged += new System.EventHandler(this.TextBoxBladeLength_TextChanged);
+            this.TextBoxBladeLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxBladeLength_KeyPress);
+            this.TextBoxBladeLength.Leave += new System.EventHandler(this.TextBoxBladeLength_Leave);
             // 
-            // LabelInnerLenght
+            // LabelInnerLength
             // 
-            this.LabelInnerLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelInnerLenght.AutoSize = true;
-            this.LabelInnerLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelInnerLenght.Location = new System.Drawing.Point(27, 483);
-            this.LabelInnerLenght.Name = "LabelInnerLenght";
-            this.LabelInnerLenght.Size = new System.Drawing.Size(160, 18);
-            this.LabelInnerLenght.TabIndex = 4;
-            this.LabelInnerLenght.Text = "l2 – Chisel cutout length";
+            this.LabelInnerLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelInnerLength.AutoSize = true;
+            this.LabelInnerLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelInnerLength.Location = new System.Drawing.Point(27, 483);
+            this.LabelInnerLength.Name = "LabelInnerLength";
+            this.LabelInnerLength.Size = new System.Drawing.Size(160, 18);
+            this.LabelInnerLength.TabIndex = 4;
+            this.LabelInnerLength.Text = "l2 – Chisel cutout length";
             // 
             // LabelHeight
             // 
@@ -279,16 +288,16 @@ namespace ORSAPR.View
             this.LabelHeight.TabIndex = 3;
             this.LabelHeight.Text = "H - Chisel height";
             // 
-            // LabelLenght
+            // LabelLength
             // 
-            this.LabelLenght.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelLenght.AutoSize = true;
-            this.LabelLenght.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LabelLenght.Location = new System.Drawing.Point(27, 363);
-            this.LabelLenght.Name = "LabelLenght";
-            this.LabelLenght.Size = new System.Drawing.Size(113, 18);
-            this.LabelLenght.TabIndex = 2;
-            this.LabelLenght.Text = "L - Chisel length";
+            this.LabelLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelLength.AutoSize = true;
+            this.LabelLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LabelLength.Location = new System.Drawing.Point(27, 363);
+            this.LabelLength.Name = "LabelLength";
+            this.LabelLength.Size = new System.Drawing.Size(113, 18);
+            this.LabelLength.TabIndex = 2;
+            this.LabelLength.Text = "L - Chisel length";
             // 
             // LabelWidth
             // 
@@ -334,16 +343,16 @@ namespace ORSAPR.View
         private System.Windows.Forms.TextBox TextBoxLength;
         private System.Windows.Forms.Button Buttonbuild;
         private System.Windows.Forms.TextBox TextBoxHeight;
-        private System.Windows.Forms.TextBox TextBoxInnerLenght;
+        private System.Windows.Forms.TextBox TextBoxInnerLength;
         private System.Windows.Forms.TextBox TextBoxWidth;
-        private System.Windows.Forms.Label LabelBladeLenght;
-        private System.Windows.Forms.TextBox TextBoxBladeLenght;
-        private System.Windows.Forms.Label LabelInnerLenght;
+        private System.Windows.Forms.Label LabelBladeLength;
+        private System.Windows.Forms.TextBox TextBoxBladeLength;
+        private System.Windows.Forms.Label LabelInnerLength;
         private System.Windows.Forms.Label LabelHeight;
-        private System.Windows.Forms.Label LabelLenght;
+        private System.Windows.Forms.Label LabelLength;
         private System.Windows.Forms.Label LabelWidth;
         private System.Windows.Forms.Label LabelInnerWidth;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TextBoxInnerWidth;
         private System.Windows.Forms.Panel panel1;
     }
 }

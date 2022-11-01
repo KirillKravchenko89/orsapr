@@ -12,29 +12,34 @@ namespace ORSAPR.Model
     public class ChiselData
     {
         /// <summary>
-        /// поле высоты зубила
-        /// </summary>
-        private double _height;
-
-        /// <summary>
-        /// поле длины зубила
-        /// </summary>
-        private double _lenght;
-
-        /// <summary>
         /// поле ширины зубила
         /// </summary>
         private double _width;
 
         /// <summary>
-        /// поле длины внутреннего выреза зубила
+        /// поле длины зубила
         /// </summary>
-        private double _innerLenght;
+        private double _length;
+
+        /// <summary>
+        /// поле высоты зубила
+        /// </summary>
+        private double _height;
 
         /// <summary>
         /// поле длины лезвия зубила
         /// </summary>
-        private double _bladeLenght;
+        private double _bladeLength;
+
+        /// <summary>
+        /// поле длины внутреннего выреза зубила
+        /// </summary>
+        private double _innerLength;
+
+        /// <summary>
+        /// поле ширины внутреннего выреза зубила
+        /// </summary>
+        private double _innerWidth;
 
         /// <summary>
         /// возвращает или задает ширину
@@ -61,34 +66,43 @@ namespace ORSAPR.Model
         /// <summary>
         /// возвращает или задает длину
         /// </summary>
-        public double Lenght
+        public double Length
         {
-            get => _lenght;
+            get => _length;
             set
             {               
                 if (value == 0)
                 {                 
                     throw new ArgumentException("Invalid chisel lenght range." +
                         " Сannot be length = 0!");
-                }
-                if (value < 100 || value > 300)
+                }              
+                if (_width != 0)
                 {
-                    throw new ArgumentException("Invalid chisel lenght range, please check " +
-                        "the entered parameters according to the range: 100mm >= L >= 300mm.");
-                }
-                else if (value > 100 || value < 300)
-                {
-                    if(_width !=0 && (_width > 10 || _width < 30))
+                    if(_width >= 10 && _width <= 30)
                     {
-                        if (value < 10 * _width || value >= 10 * _width + 10)
+                       
+                        if (value < 10 * _width || value >= 10 * _width + 10 || value < 100 || value > 300)
                         {
+                            if (_width == 30)
+                            {
+                                throw new ArgumentException($"Invalid chisel lenght range," +
+                                    $" please check the entered parameters according to the range:" +
+                                $" {10 * _width}mm <= L < 300mm.");
+                            }
+                            else
                             throw new ArgumentException($"Invalid chisel lenght range," +
                                 $" please check the entered parameters according to the range:" +
                             $" {10 * _width}mm <= L < {10 * _width + 10}mm.");
                         }
+                        
                     }                   
-                }               
-                _lenght = value;
+                }
+                else if (value < 100 || value > 300)
+                {
+                    throw new ArgumentException("Invalid chisel lenght range, please check " +
+                        "the entered parameters according to the range: 100mm >= L >= 300mm.");
+                }
+                _length = value;
             }
         }
 
@@ -104,51 +118,169 @@ namespace ORSAPR.Model
                 {                   
                     throw new ArgumentException("Invalid chisel height range." +
                         " Сannot be height = 0!");
+                }         
+                if (_width != 0)
+                {
+                    if (_width >= 10 && _width <= 30)
+                    {
+                        if (value < 0.6 * _width || value > 0.8 * _width)
+                        {
+                            throw new ArgumentException($"Invalid chisel height range, please" +
+                                $" check the entered parameters according to the range:" +
+                                $" {0.6 * _width}mm <= H <= {0.8 * _width}mm.");
+                        }
+                    }                   
                 }
-                if (value < 6 || value > 24)
+                else if (value < 6 || value > 24)
                 {
                     throw new ArgumentException("Invalid chisel height range, please check " +
                         "the entered parameters according to the range: 6mm >= H >= 24mm.");
                 }
-                else if (value > 6 || value < 24)
-                {
-                    if (_width != 0 && (_width > 10 || _width < 30))
-                    {
-                        if (value < 0.6 * _width || value > 0.8 * _width)
-                        {
-                            throw new ArgumentException($"Invalid chisel height range, please check the" +
-                                $" entered parameters according to the range:" +
-                                $" {0.6 * _width}mm <= H <= {0.8 * _width}mm.");
-                        }
-                    }
-                }
                 _height = value;                                          
-            }
-        }
-        
-
-        /// <summary>
-        /// возвращает или задает длину внутреннего выреза зубила
-        /// </summary>
-        public double InnerLenght
-        {
-            get => _innerLenght;
-            set
-            {
-                _innerLenght = value;
             }
         }
 
         /// <summary>
         /// возвращает или задает длину лезвия зубила
         /// </summary>
-        public double BladeLenght
+        public double BladeLength
         {
-            get => _bladeLenght;
+            get => _bladeLength;
             set
             {
-                _bladeLenght = value;
+                if (value == 0)
+                {
+                    throw new ArgumentException("Invalid chisel blade lenght range. " +
+                        "Сannot be blade Lenght = 0!");
+                }            
+                if (_length != 0)
+                {
+                    if(_length >= 100 && _length <= 300)
+                    {
+                        if (value < 0.4 * _length || value > 0.5 * _length)
+                        {
+                            throw new ArgumentException($"Invalid chisel blade lenght range," +
+                                $" please check the entered parameters according" +
+                                $" to the range: {0.4 * _length}mm <= l1 <= {0.5 * _length}mm.");
+                        }
+                    }                    
+                }
+                else if (value < 40 || value > 150)
+                {
+                    throw new ArgumentException("Invalid chisel blade lenght range, please " +
+                     "check the entered parameters according to the range: 40mm >= l1 >= 150mm.");
+                }
+                _bladeLength = value;
             }
         }
+
+        /// <summary>
+        /// возвращает или задает длину внутреннего выреза зубила
+        /// </summary>
+        public double InnerLength
+        {
+            get => _innerLength;
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentException("Invalid chisel inner cotout lenght range." +
+                        " Сannot be inner cotout lenght = 0!");
+                }              
+                if (_length != 0)
+                {
+                    if(_length >= 100 && _length <= 300)
+                    {
+                        if (value < 10 || value > 0.25 * _length)
+                        {
+                            throw new ArgumentException($"Invalid chisel inner cotout lenght" +
+                                $" range, please check the entered parameters according" +
+                                $" to the range: 10mm <= l2 <= {0.25 * _length}mm.");
+                        }
+                    }                   
+                }
+                else if (value < 10 || value > 75)
+                {
+                    throw new ArgumentException("Invalid chisel inner cotout lenght range," +
+                        " please check the entered parameters according" +
+                        " to the range: 10mm >= l2 >= 75mm.");
+                }
+                _innerLength = value;
+            }
+        }
+
+        /// <summary>
+        /// возвращает или задает ширину внутреннего выреза зубила
+        /// </summary>
+        public double InnerWidth
+        {
+            get => _innerWidth;
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentException("Invalid chisel inner cotout width range." +
+                        " Сannot be inner cotout lenght = 0!");
+                }               
+                if (_width != 0 && _innerLength == 0)
+                {
+                    if (_width >= 10 && _width <= 30)
+                    {
+                        if (value < 5 || value > 0.5 * _width)
+                        {
+                            throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                $" range, please check the entered parameters according" +
+                                $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");                      
+                        }
+                    }                   
+                }
+                if (_width == 0 && _innerLength != 0)
+                {
+                    if (_innerLength >= 10 && _innerLength <= 75)
+                    {
+                        if (value < 5 || value > _innerLength * 0.5)
+                        {
+                            throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                $" range, please check the entered parameters according" +
+                                $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                        }
+                    }
+                }
+                if(_width != 0 && _innerLength != 0)
+                {
+                    if (_innerLength >= 10 && _innerLength <= 75 && _width >= 10 && _width <= 30)
+                    {
+                        if (_innerLength > _width)
+                        {
+                            if (value < 5 || value > 0.5 * _width)
+                            {
+                                throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                    $" range, please check the entered parameters according" +
+                                    $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");
+                            }
+                        }
+                        else
+                        {
+                            if (value < 5 || value > _innerLength * 0.5)
+                            {
+                                throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                    $" range, please check the entered parameters according" +
+                                    $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                            }
+                        }
+                        
+                    }
+                }
+                else if (value < 5 || value > 15)
+                {
+                    throw new ArgumentException("Invalid chisel inner cotout width range," +
+                        " please check the entered parameters according" +
+                        " to the range: 5mm >= w1 >= 15mm.");
+                }
+                _innerWidth = value;
+            }
+        }
+
+
     }
 }
