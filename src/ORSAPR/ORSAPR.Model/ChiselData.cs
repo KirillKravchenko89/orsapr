@@ -52,7 +52,8 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {
                     _width = value;
-                    throw new ArgumentException("Invalid chisel width range. Сannot be width = 0!");
+                    throw new ArgumentException("Invalid chisel width range." +
+                        " Сannot be width = 0!");
                 }
                 if (value < 10 || value > 30)
                 {                 
@@ -81,12 +82,13 @@ namespace ORSAPR.Model
                     if(_width >= 10 && _width <= 30)
                     {
                        
-                        if (value < 10 * _width || value >= 10 * _width + 10 || value < 100 || value > 300)
+                        if (value < 10 * _width || value >= 10 * _width + 10
+                            || value < 100 || value > 300)
                         {
                             if (_width == 30)
                             {
                                 throw new ArgumentException($"Invalid chisel lenght range," +
-                                    $" please check the entered parameters according to the range:" +
+                                $" please check the entered parameters according to the range:" +
                                 $" {10 * _width}mm <= L < 300mm.");
                             }
                             else
@@ -168,7 +170,7 @@ namespace ORSAPR.Model
                 else if (value < 40 || value > 150)
                 {
                     throw new ArgumentException("Invalid chisel blade lenght range, please " +
-                     "check the entered parameters according to the range: 40mm >= l1 >= 150mm.");
+                    "check the entered parameters according to the range: 40mm >= l1 >= 150mm.");
                 }
                 _bladeLength = value;
             }

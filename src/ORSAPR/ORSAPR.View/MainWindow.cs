@@ -88,7 +88,7 @@ namespace ORSAPR.View
                 }
             }
             textBox.Text = outS;
-
+            textBox.SelectionStart = outS.Length;
             if (str.Contains("."))
             {
                 str.Replace(".", ",");
