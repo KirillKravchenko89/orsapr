@@ -42,7 +42,7 @@ namespace ORSAPR.View
             this.LabelCompasApp = new System.Windows.Forms.Label();
             this.LabelParameter = new System.Windows.Forms.Label();
             this.TextBoxLength = new System.Windows.Forms.TextBox();
-            this.Buttonbuild = new System.Windows.Forms.Button();
+            this.ButtonBuild = new System.Windows.Forms.Button();
             this.TextBoxHeight = new System.Windows.Forms.TextBox();
             this.TextBoxInnerLength = new System.Windows.Forms.TextBox();
             this.TextBoxWidth = new System.Windows.Forms.TextBox();
@@ -71,7 +71,7 @@ namespace ORSAPR.View
             this.PanelWindow.Controls.Add(this.LabelCompasApp);
             this.PanelWindow.Controls.Add(this.LabelParameter);
             this.PanelWindow.Controls.Add(this.TextBoxLength);
-            this.PanelWindow.Controls.Add(this.Buttonbuild);
+            this.PanelWindow.Controls.Add(this.ButtonBuild);
             this.PanelWindow.Controls.Add(this.TextBoxHeight);
             this.PanelWindow.Controls.Add(this.TextBoxInnerLength);
             this.PanelWindow.Controls.Add(this.TextBoxWidth);
@@ -120,6 +120,7 @@ namespace ORSAPR.View
             // 
             this.ButtonUnloadCompas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonUnloadCompas.Enabled = false;
             this.ButtonUnloadCompas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ButtonUnloadCompas.Location = new System.Drawing.Point(292, 235);
             this.ButtonUnloadCompas.Name = "ButtonUnloadCompas";
@@ -127,12 +128,12 @@ namespace ORSAPR.View
             this.ButtonUnloadCompas.TabIndex = 17;
             this.ButtonUnloadCompas.Text = "Unload";
             this.ButtonUnloadCompas.UseVisualStyleBackColor = true;
+            this.ButtonUnloadCompas.Click += new System.EventHandler(this.ButtonUnloadCompas_Click);
             // 
             // ButtonLoadCompas
             // 
             this.ButtonLoadCompas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonLoadCompas.Enabled = false;
             this.ButtonLoadCompas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ButtonLoadCompas.Location = new System.Drawing.Point(292, 187);
             this.ButtonLoadCompas.Name = "ButtonLoadCompas";
@@ -140,6 +141,7 @@ namespace ORSAPR.View
             this.ButtonLoadCompas.TabIndex = 16;
             this.ButtonLoadCompas.Text = "Load";
             this.ButtonLoadCompas.UseVisualStyleBackColor = true;
+            this.ButtonLoadCompas.Click += new System.EventHandler(this.ButtonLoadCompas_Click);
             // 
             // LabelUnloadCompas
             // 
@@ -198,18 +200,19 @@ namespace ORSAPR.View
             this.TextBoxLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxLenght_KeyPress);
             this.TextBoxLength.Leave += new System.EventHandler(this.TextBoxLenght_Leave);
             // 
-            // Buttonbuild
+            // ButtonBuild
             // 
-            this.Buttonbuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.ButtonBuild.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Buttonbuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.Buttonbuild.Location = new System.Drawing.Point(180, 562);
-            this.Buttonbuild.Name = "Buttonbuild";
-            this.Buttonbuild.Size = new System.Drawing.Size(90, 50);
-            this.Buttonbuild.TabIndex = 6;
-            this.Buttonbuild.Text = "build";
-            this.Buttonbuild.UseVisualStyleBackColor = true;
-            this.Buttonbuild.Click += new System.EventHandler(this.Buttonbuild_Click);
+            this.ButtonBuild.Enabled = false;
+            this.ButtonBuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.ButtonBuild.Location = new System.Drawing.Point(180, 562);
+            this.ButtonBuild.Name = "ButtonBuild";
+            this.ButtonBuild.Size = new System.Drawing.Size(90, 50);
+            this.ButtonBuild.TabIndex = 6;
+            this.ButtonBuild.Text = "build";
+            this.ButtonBuild.UseVisualStyleBackColor = true;
+            this.ButtonBuild.Click += new System.EventHandler(this.Buttonbuild_Click);
             // 
             // TextBoxHeight
             // 
@@ -341,7 +344,7 @@ namespace ORSAPR.View
         private System.Windows.Forms.Label LabelCompasApp;
         private System.Windows.Forms.Label LabelParameter;
         private System.Windows.Forms.TextBox TextBoxLength;
-        private System.Windows.Forms.Button Buttonbuild;
+        private System.Windows.Forms.Button ButtonBuild;
         private System.Windows.Forms.TextBox TextBoxHeight;
         private System.Windows.Forms.TextBox TextBoxInnerLength;
         private System.Windows.Forms.TextBox TextBoxWidth;

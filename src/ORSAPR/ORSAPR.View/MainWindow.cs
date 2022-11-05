@@ -62,10 +62,33 @@ namespace ORSAPR.View
         /// выделение памяти под объект параметра
         /// </summary>
         private ChiselData _chiselData = new ChiselData();
-        
-    public FormParameters()
+
+        private Manager _Manager;
+
+        private KompasConnector _kompasApp;
+
+        public FormParameters()
         {
             InitializeComponent();
+            SetAllInputsEnabledState(false);
+        }
+
+        /// <summary>
+        /// изменения параметра Enabled у группы типа Textbox
+        /// </summary>
+        /// <param name="state"></param>
+        private void SetAllInputsEnabledState(bool state)
+        {
+            foreach (Control control in Controls)
+            {
+                foreach (Control textbox in control.Controls)
+                {
+                    if (textbox.GetType() == typeof(TextBox))
+                    {
+                        textbox.Enabled = state;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -258,44 +281,38 @@ namespace ORSAPR.View
         /// <summary>
         /// функция обновления данных фигуры
         /// </summary>
-        private void ReloadChiselData(TextBox textBox, double chuselData)
+        private void ReloadChiselData(TextBox textBox, double chiselData)
         {
-            if ((chuselData == _chiselData.Width) && (textBox == TextBoxWidth) &&
+            if ((chiselData == _chiselData.Width) && (textBox == TextBoxWidth) &&
                 TextBoxWidth.Text != string.Empty)
             {              
                 _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);                                   
-            }
-          
-            if ((chuselData == _chiselData.Length) && (textBox == TextBoxLength) &&
+            }         
+            if ((chiselData == _chiselData.Length) && (textBox == TextBoxLength) &&
                 TextBoxLength.Text != string.Empty)
             {              
                 _chiselData.Length = Convert.ToDouble(TextBoxLength.Text);                             
-            }
-           
-            if ((chuselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
+            }        
+            if ((chiselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
                 TextBoxHeight.Text != string.Empty)
             {              
                 _chiselData.Height = Convert.ToDouble(TextBoxHeight.Text);      
             }
-
-            if ((chuselData == _chiselData.BladeLength) && (textBox == TextBoxBladeLength) &&
+            if ((chiselData == _chiselData.BladeLength) && (textBox == TextBoxBladeLength) &&
                TextBoxBladeLength.Text != string.Empty)
             {
                 _chiselData.BladeLength = Convert.ToDouble(TextBoxBladeLength.Text);
             }
-
-            if ((chuselData == _chiselData.InnerLength) && (textBox == TextBoxInnerLength) &&
+            if ((chiselData == _chiselData.InnerLength) && (textBox == TextBoxInnerLength) &&
                 TextBoxInnerLength.Text != string.Empty)
             {
                 _chiselData.InnerLength = Convert.ToDouble(TextBoxInnerLength.Text);
             }
-
-            if ((chuselData == _chiselData.InnerWidth) && (textBox == TextBoxInnerWidth) &&
+            if ((chiselData == _chiselData.InnerWidth) && (textBox == TextBoxInnerWidth) &&
                 TextBoxInnerWidth.Text != string.Empty)
             {
                 _chiselData.InnerWidth = Convert.ToDouble(TextBoxInnerWidth.Text);
             }
-
         }
       
         /// <summary>
@@ -309,7 +326,7 @@ namespace ORSAPR.View
             IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
             IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
             IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
-            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
+            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);           
         }
 
         /// <summary>
@@ -606,6 +623,32 @@ namespace ORSAPR.View
                     MessageBox.Show(errorText, caption, button, icon,
                     MessageBoxDefaultButton.Button1);
                 }
+
+
+/*
+                if (_kompasApp == null)
+                {
+                    MessageBox.Show("Load KOMPAS 3D first.", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    return;
+                }
+
+
+                if (!_kompasApp.CreateDocument3D())
+                {
+                    return;
+                }
+               
+
+                Manager _Manager = new Manager(_kompasApp);
+                if (_Manager == null)
+                {             
+                    return;
+                }
+               
+                _Manager.BuildModel();*/
+     
             }      
         }
 
@@ -628,6 +671,35 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
-        }     
+        }
+
+        private void ButtonLoadCompas_Click(object sender, EventArgs e)
+        {
+
+            _kompasApp = new KompasConnector();
+
+
+            SetAllInputsEnabledState(true);
+
+            ButtonBuild.Enabled = true;
+
+            ButtonLoadCompas.Enabled = false;
+            ButtonUnloadCompas.Enabled = true;
+            
+        }
+
+        private void ButtonUnloadCompas_Click(object sender, EventArgs e)
+        {
+
+            _kompasApp.DestructApp();
+
+            SetAllInputsEnabledState(false);
+
+            ButtonBuild.Enabled = false;
+
+            ButtonLoadCompas.Enabled = true;
+            ButtonUnloadCompas.Enabled = false;
+            
+        }      
     }
 }
