@@ -14,76 +14,51 @@ namespace ORSAPR.Model
 	{
 
 
-		private KompasConnector _kompasApp;
+		public KompasConnector _kompasApp = new KompasConnector();
+
+        //старая версия
+        public Manager(KompasConnector kompasApp)
+        {
+            if (kompasApp == null)
+            {
+                return;
+            }
+            _kompasApp = kompasApp;
+        }
 
 
-		public Manager(KompasConnector kompasApp)
-		{
-			if (kompasApp == null)
-			{
-				return;
-			}
-			_kompasApp = kompasApp;
-		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		public struct KompasPoint2D
-		{
-			public double X
-			{
-				get;
-				set;
-			}
-			public double Y
-			{
-				get;
-				set;
-			}
+        public void/*bool*/ BuildModel()
+	    {
 
-			public KompasPoint2D(double xc, double yc)
-			{
-				X = xc;
-				Y = yc;
-			}
+          
+           
 
 
-			public struct MufflerParameters
-			{
-
-				public ksPart Document3DPart;
-				public Obj3dType BasePlaneAxis;
-				public Direction_Type Direction;
-				public KompasPoint2D BasePlanePoint;
-				public MufflerParameters(ksPart document3DPart, Obj3dType basePlaneAxis, Direction_Type direction, KompasPoint2D basePlanePoint)
-				{
-					Document3DPart = document3DPart;
-					BasePlaneAxis = basePlaneAxis;
-					Direction = direction;
-					BasePlanePoint = basePlanePoint;
-				}
-			}
-
-			public bool BuildModel()
-			{
 
 
-                var chisel = CreateChisel();
-                if (chisel == null)
-                {
-                    return false;
-                }
 
-                return true;
+
+
+
+
+            //для bool с отдельной функцией создания зубила
+            /*var chisel = CreateChisel();
+            if (chisel == null)
+            {
+                return false;
             }
 
-            private ksEntity CreateChisel()
+            return true;*/
+        }
+
+		//для buildmanager старая вариация с загрузкой компаса
+            /*private ksEntity CreateChisel()
             {
 
 				return null;
-			}
+			}*/
 
-        }
+        
 	}
 }

@@ -625,30 +625,33 @@ namespace ORSAPR.View
                 }
 
 
-/*
-                if (_kompasApp == null)
-                {
-                    MessageBox.Show("Load KOMPAS 3D first.", "Information",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    return;
-                }
+                /* if (_kompasApp == null)
+                 {
+                     MessageBox.Show("Load KOMPAS 3D first.", "Information",
+                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                     return;
+                 }*/
 
+                /*
+                                if (!_kompasApp.CreateDocument3D())
+                                {
+                                    return;
+                                }*/
+                
+                _kompasApp = new KompasConnector();
+                Manager _Manager = new Manager(_kompasApp);
                 if (!_kompasApp.CreateDocument3D())
                 {
                     return;
                 }
-               
-
-                Manager _Manager = new Manager(_kompasApp);
-                if (_Manager == null)
-                {             
-                    return;
+                if (_Manager != null)
+                {
+                    _Manager.BuildModel();
                 }
-               
-                _Manager.BuildModel();*/
-     
+                
+
             }      
         }
 
@@ -671,12 +674,16 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
+            else
+            {
+                _kompasApp.DestructApp();
+            }
         }
 
         private void ButtonLoadCompas_Click(object sender, EventArgs e)
         {
 
-            _kompasApp = new KompasConnector();
+            /*_kompasApp = new KompasConnector();*/
 
 
             SetAllInputsEnabledState(true);
@@ -691,7 +698,7 @@ namespace ORSAPR.View
         private void ButtonUnloadCompas_Click(object sender, EventArgs e)
         {
 
-            _kompasApp.DestructApp();
+            /*_kompasApp.DestructApp();*/
 
             SetAllInputsEnabledState(false);
 

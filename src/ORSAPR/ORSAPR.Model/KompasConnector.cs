@@ -40,8 +40,8 @@ namespace ORSAPR.Model
             if (!GetActiveApp())
             {
                 if (!CreateNewApp())
-                {
-                    return;
+                {               
+                    return;                   
                 }
             }
         }
