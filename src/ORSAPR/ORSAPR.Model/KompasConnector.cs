@@ -110,11 +110,11 @@ namespace ORSAPR.Model
 
 		public void DestructApp()
 		{
-			KompasObject.Quit();
-			KompasObject = null;
+            KompasObject.Quit();
+            KompasObject = null;
 			Document3D = null;
-			Chisel = null;			
-		}
+			Chisel = null;           
+        }
 	}
 }
 

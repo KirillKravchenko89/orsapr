@@ -47,7 +47,7 @@ namespace ORSAPR.View
         /// переменная цвета поля ошибки
         /// </summary>
         private readonly Color _errorColor = Color.LightPink;
-
+        
         /// <summary>
         /// переменная цвета пустого поля
         /// </summary>
@@ -61,16 +61,16 @@ namespace ORSAPR.View
         /// <summary>
         /// выделение памяти под объект параметра
         /// </summary>
-        private ChiselData _chiselData = new ChiselData();
+        private ChiselData _chiselData = new ChiselData();       
 
-        private Manager _Manager;
-
+        /// <summary>
+        /// выделение памяти под объект компас приложения
+        /// </summary>
         private KompasConnector _kompasApp;
 
         public FormParameters()
         {
-            InitializeComponent();
-            SetAllInputsEnabledState(false);
+            InitializeComponent();           
         }
 
         /// <summary>
@@ -326,7 +326,28 @@ namespace ORSAPR.View
             IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
             IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
             IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
-            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);           
+            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
+            OnOffBuildButton();
+        }
+
+        /// <summary>
+        /// функция активатор кнопки Build
+        /// </summary>
+        private void OnOffBuildButton()
+        {
+            if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
+                && _chiselData.BladeLength != 0 && _chiselData.InnerLength != 0
+                && _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
+                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
+                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
+                && _errorTextBoxInnerWidth == ""))
+            {
+                ButtonBuild.Enabled = true;
+            }
+            else
+            {
+                ButtonBuild.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -529,130 +550,18 @@ namespace ORSAPR.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Buttonbuild_Click(object sender, EventArgs e)
-        {
-            var MessageText = string.Empty;
-            var errorText = string.Empty;
-
-            if ((_chiselData.Width != 0 || _chiselData.Length != 0 || _chiselData.Height != 0
-                || _chiselData.BladeLength != 0 || _chiselData.InnerLength != 0 
-                || _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
-                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
-                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
-                && _errorTextBoxInnerWidth == ""))
+        {     
+            _kompasApp = new KompasConnector();
+            if (!_kompasApp.CreateDocument3D())
             {
-                MessageText += $" Parameters of chisel: {Environment.NewLine}";
-
-                if (_chiselData.Width != 0)
-                {
-                    MessageText += $" - W - Width: {Convert.ToString(_chiselData.Width)}" +
-                        $"{Environment.NewLine}";
-                }
-                if (_chiselData.Length != 0) 
-                {
-                    MessageText += $" - L - Length: {Convert.ToString(_chiselData.Length)}" +
-                        $"{Environment.NewLine}";
-                }
-                if (_chiselData.Height != 0) 
-                {
-                    MessageText += $" - H - Height: {Convert.ToString(_chiselData.Height)}" +
-                        $"{Environment.NewLine}";
-                }
-                if (_chiselData.BladeLength != 0)
-                {
-                    MessageText += $" - l1 - Blade Leigth:" +
-                        $" {Convert.ToString(_chiselData.BladeLength)}{Environment.NewLine}";
-                }
-                if (_chiselData.InnerLength != 0)
-                {
-                    MessageText += $" - l2 - Inner Cutout Length:" +
-                        $" {Convert.ToString(_chiselData.InnerLength)}{Environment.NewLine}";
-                }
-                if (_chiselData.InnerWidth != 0)
-                {
-                    MessageText += $" - w1 - Inner Cutout Width:" +
-                        $" {Convert.ToString(_chiselData.InnerWidth)}{Environment.NewLine}";
-                }
-                if (MessageText != string.Empty) 
-                {
-                    string caption = "Message!";
-                    MessageBoxButtons button = MessageBoxButtons.OK;
-                    MessageBoxIcon icon = MessageBoxIcon.Information;
-                    MessageBox.Show(MessageText, caption, button, icon,
-                    MessageBoxDefaultButton.Button1);
-                }
+                return;
             }
-            if (_errorTextBoxWidth != "" || _errorTextBoxLength != ""
-                || _errorTextBoxHeight != "" || _errorTextBoxBladeLength != ""
-                || _errorTextBoxInnerLength != "" || _errorTextBoxInnerWidth != "")
+            Manager _Manager = new Manager(_kompasApp);
+               
+            if (_Manager != null)
             {
-                errorText += $"Some errors on form: {Environment.NewLine}";
-
-                if (_errorTextBoxWidth != "")
-                {
-                    errorText += $" - W - Width: {_errorTextBoxWidth}{Environment.NewLine}";
-                }
-                if (_errorTextBoxLength != "")
-                {
-                    errorText += $" - L - Length: {_errorTextBoxLength}{Environment.NewLine}";
-                }
-                if (_errorTextBoxHeight != "")
-                {
-                    errorText += $" - H - Height: {_errorTextBoxHeight}{Environment.NewLine}";
-                }
-                if (_errorTextBoxBladeLength != "")
-                {
-                    errorText += $" - l1 - Blade Length: " +
-                        $"{_errorTextBoxBladeLength}{Environment.NewLine}";
-                }
-                if (_errorTextBoxInnerLength != "")
-                {
-                    errorText += $" - l2 - Inner Length: " +
-                        $"{_errorTextBoxInnerLength}{Environment.NewLine}";
-                }
-                if (_errorTextBoxInnerWidth != "")
-                {
-                    errorText += $" - w1 - Inner Width: " +
-                        $"{_errorTextBoxInnerWidth}{Environment.NewLine}";
-                }
-
-                if (errorText != string.Empty)
-                {
-                    string caption = "Error!";
-                    MessageBoxButtons button = MessageBoxButtons.OK;
-                    MessageBoxIcon icon = MessageBoxIcon.Error;
-                    MessageBox.Show(errorText, caption, button, icon,
-                    MessageBoxDefaultButton.Button1);
-                }
-
-
-
-                /* if (_kompasApp == null)
-                 {
-                     MessageBox.Show("Load KOMPAS 3D first.", "Information",
-                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                     return;
-                 }*/
-
-                /*
-                                if (!_kompasApp.CreateDocument3D())
-                                {
-                                    return;
-                                }*/
-                
-                _kompasApp = new KompasConnector();
-                Manager _Manager = new Manager(_kompasApp);
-                if (!_kompasApp.CreateDocument3D())
-                {
-                    return;
-                }
-                if (_Manager != null)
-                {
-                    _Manager.BuildModel();
-                }
-                
-
-            }      
+                _Manager.BuildModel();
+            }          
         }
 
         /// <summary>
@@ -674,39 +583,11 @@ namespace ORSAPR.View
             {
                 e.Cancel = true;
             }
-            else
+            else if(_kompasApp != null)
             {
                 _kompasApp.DestructApp();
             }
         }
-
-        private void ButtonLoadCompas_Click(object sender, EventArgs e)
-        {
-
-            /*_kompasApp = new KompasConnector();*/
-
-
-            SetAllInputsEnabledState(true);
-
-            ButtonBuild.Enabled = true;
-
-            ButtonLoadCompas.Enabled = false;
-            ButtonUnloadCompas.Enabled = true;
-            
-        }
-
-        private void ButtonUnloadCompas_Click(object sender, EventArgs e)
-        {
-
-            /*_kompasApp.DestructApp();*/
-
-            SetAllInputsEnabledState(false);
-
-            ButtonBuild.Enabled = false;
-
-            ButtonLoadCompas.Enabled = true;
-            ButtonUnloadCompas.Enabled = false;
-            
-        }      
+   
     }
 }
