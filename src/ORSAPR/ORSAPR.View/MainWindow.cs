@@ -91,34 +91,55 @@ namespace ORSAPR.View
             }
         }
 
+        private void TextBoxTextChanged(bool state)
+        {
+            foreach (Control control in Controls)
+            {
+                foreach (Control textbox in control.Controls)
+                {
+                    if (textbox.GetType() == typeof(TextBox))
+                    {
+                       /* if(textbox.TextChanged)
+                        {
+
+                        }*/
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// метод замены точек на запятые, запрет ввода символов кроме double
         /// </summary>
         /// <param name="textBox"></param>
         private void PointValidation(TextBox textBox)
         {
-            string str = textBox.Text;
+            /*string str = textBox.Text;*/
             string tmp = textBox.Text.Trim();
             string outS = string.Empty;
             bool comma = true;
             foreach (char ch in tmp)
             {
                 if (Char.IsDigit(ch) || (ch == ',' && comma))
-                {
+                {                 
                     outS += ch;
                     if (ch == ',')
                         comma = false;
+                    if(outS.ToString()[0] == ',' || outS.ToString()[0] == '0')
+                    {
+
+                        textBox.SelectionStart = outS.Length;
+                    }
                 }
             }
             textBox.Text = outS;
-            textBox.SelectionStart = outS.Length;
-            if (str.Contains("."))
+
+           /* if (str.Contains("."))
             {
                 str.Replace(".", ",");
                 textBox.Clear();
                 textBox.AppendText(str.Replace(".", ","));
-
-            }            
+            }*/
         }
 
         /// <summary>
@@ -195,10 +216,15 @@ namespace ORSAPR.View
                     textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
                 }
             }
-            if (!Convert.ToString(textBox.Text).Equals("0"))
+            if ((Convert.ToString(textBox.Text).All(x => ",0".Contains(x)) && textBox.Text != ""))         
+            {
+                textBox.Text = "0";
+            }
+            else if (!Convert.ToString(textBox.Text).Equals("0"))
             {
                 textBox.Text = textBox.Text.TrimStart('0');
-            }           
+
+            }
         }
 
         /// <summary>
@@ -218,7 +244,7 @@ namespace ORSAPR.View
                 Buttonbuild_Click(null, null);                
             }          
             if (Char.IsNumber(e.KeyChar) | (((e.KeyChar == Convert.ToChar(","))
-                || (e.KeyChar == Convert.ToChar("."))) && !textBox.Text.Contains(","))
+                /*|| (e.KeyChar == Convert.ToChar("."))*/) && !textBox.Text.Contains(","))
                 | e.KeyChar == '\b' | e.KeyChar == (char)3 | e.KeyChar == (char)22
                 | e.KeyChar == (char)1 | e.KeyChar == (char)24)
             {              
@@ -321,9 +347,9 @@ namespace ORSAPR.View
         private void CheckAffterInput()
         {
            string errorMessage = string.Empty;
-            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
             IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
             IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
+            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
             IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
             IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
             IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
@@ -348,7 +374,17 @@ namespace ORSAPR.View
             {
                 ButtonBuild.Enabled = false;
             }
-        }
+        }       
+
+        /// <summary>
+        /// обработчик события изменения текста в текстбоксе
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            CheckAffterInput();
+        }       
 
         /// <summary>
         /// обработчик события нажатия на клавишу в текстбоксе ширины
@@ -358,18 +394,7 @@ namespace ORSAPR.View
         private void TextBoxWidth_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxWidth);
-        }
-
-        /// <summary>
-        /// обработчик события изменения текста текстбокса ширины
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxWidth_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxWidth, _errorTextBoxWidth, _chiselData.Width);
-            CheckAffterInput();
-        }
+        }     
     
         /// <summary>
         /// обработчик события выхода из текстбокса ширины
@@ -390,18 +415,7 @@ namespace ORSAPR.View
         private void TextBoxLenght_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxLength);          
-        }
-
-        /// <summary>
-        /// обработчик события изменения текста в текстбоксе длины
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxLenght_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxLength, _errorTextBoxLength, _chiselData.Length);
-            CheckAffterInput();
-        }
+        }     
 
         /// <summary>
         /// обработчик события выхода из текстбокса длины
@@ -422,18 +436,7 @@ namespace ORSAPR.View
         private void TextBoxHeight_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxHeight);
-        }
-
-        /// <summary>
-        /// обработчик события изменения текста в текстбоксе высоты
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxHeight_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxHeight, _errorTextBoxHeight, _chiselData.Height);
-            CheckAffterInput();
-        }
+        }      
 
         /// <summary>
         /// обработчик события выхода из текстбокса высоты
@@ -454,19 +457,7 @@ namespace ORSAPR.View
         private void TextBoxBladeLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxBladeLength);
-        }
-
-        /// <summary>
-        /// обработчик события изменения текста в текстбоксе длины лезвия
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxBladeLength_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxBladeLength, _errorTextBoxBladeLength,
-                _chiselData.BladeLength);
-            CheckAffterInput();
-        }
+        }        
 
         /// <summary>
         /// обработчик события выхода из текстбокса длины лезвия
@@ -487,19 +478,7 @@ namespace ORSAPR.View
         private void TextBoxInnerLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxInnerLength);
-        }
-
-        /// <summary>
-        /// обрабочик события изменения текста в текстбоксе длины внутреннего выреза
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxInnerLength_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxInnerLength, _errorTextBoxInnerLength,
-                _chiselData.InnerLength);
-            CheckAffterInput();
-        }
+        }        
 
         /// <summary>
         /// обрабочик события выхода из текстбокса длины внутреннего выреза
@@ -520,19 +499,7 @@ namespace ORSAPR.View
         private void TextBoxInnerWidth_KeyPress(object sender, KeyPressEventArgs e)
         {
             IfKeyPress(e, TextBoxInnerWidth);
-        }
-
-        /// <summary>
-        /// обработчик события изменения текста в текстбоксе ширины внутреннего выреза 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void TextBoxInnerWidth_TextChanged(object sender, EventArgs e)
-        {
-            IfTextBoxTextChanged(TextBoxInnerWidth, _errorTextBoxInnerWidth,
-                _chiselData.InnerWidth);
-            CheckAffterInput();
-        }
+        }       
 
         /// <summary>
         /// обработчик события выхода из текстбокса ширины внутреннего выреза
@@ -560,7 +527,7 @@ namespace ORSAPR.View
                
             if (_Manager != null)
             {
-                _Manager.BuildModel();
+                _Manager.BuildModel(_chiselData);
             }          
         }
 

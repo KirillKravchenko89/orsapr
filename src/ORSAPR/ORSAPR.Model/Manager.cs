@@ -8,11 +8,15 @@ using Kompas6API5;
 using Kompas6Constants3D;
 using Kompas6Constants;
 
+
+
+
+
 namespace ORSAPR.Model
 {
 	public class Manager
 	{
-
+        
 
 		public KompasConnector _kompasApp = new KompasConnector();
 
@@ -28,10 +32,10 @@ namespace ORSAPR.Model
 
 
 
-        public void BuildModel()
+        public void BuildModel(ChiselData chiselData)
 	    {
-
-            var Chisel = _kompasApp.Chisel;
+         
+                var Chisel = _kompasApp.Chisel;
                 // получим интерфейс базовой плоскости XOY
                 ksEntity planeXOY = (ksEntity)Chisel.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);    // 1-интерфейс на плоскость XOY
                 ksEntity iSketch = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_sketch);

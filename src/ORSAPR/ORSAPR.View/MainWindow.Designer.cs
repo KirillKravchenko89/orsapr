@@ -102,7 +102,7 @@ namespace ORSAPR.View
             this.TextBoxInnerWidth.Name = "TextBoxInnerWidth";
             this.TextBoxInnerWidth.Size = new System.Drawing.Size(203, 22);
             this.TextBoxInnerWidth.TabIndex = 5;
-            this.TextBoxInnerWidth.TextChanged += new System.EventHandler(this.TextBoxInnerWidth_TextChanged);
+            this.TextBoxInnerWidth.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxInnerWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerWidth_KeyPress);
             this.TextBoxInnerWidth.Leave += new System.EventHandler(this.TextBoxInnerWidth_Leave);
             // 
@@ -124,7 +124,7 @@ namespace ORSAPR.View
             this.TextBoxLength.Name = "TextBoxLength";
             this.TextBoxLength.Size = new System.Drawing.Size(203, 22);
             this.TextBoxLength.TabIndex = 1;
-            this.TextBoxLength.TextChanged += new System.EventHandler(this.TextBoxLenght_TextChanged);
+            this.TextBoxLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxLenght_KeyPress);
             this.TextBoxLength.Leave += new System.EventHandler(this.TextBoxLenght_Leave);
             // 
@@ -149,7 +149,7 @@ namespace ORSAPR.View
             this.TextBoxHeight.Name = "TextBoxHeight";
             this.TextBoxHeight.Size = new System.Drawing.Size(203, 22);
             this.TextBoxHeight.TabIndex = 2;
-            this.TextBoxHeight.TextChanged += new System.EventHandler(this.TextBoxHeight_TextChanged);
+            this.TextBoxHeight.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxHeight_KeyPress);
             this.TextBoxHeight.Leave += new System.EventHandler(this.TextBoxHeight_Leave);
             // 
@@ -160,7 +160,7 @@ namespace ORSAPR.View
             this.TextBoxInnerLength.Name = "TextBoxInnerLength";
             this.TextBoxInnerLength.Size = new System.Drawing.Size(203, 22);
             this.TextBoxInnerLength.TabIndex = 4;
-            this.TextBoxInnerLength.TextChanged += new System.EventHandler(this.TextBoxInnerLength_TextChanged);
+            this.TextBoxInnerLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxInnerLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerLength_KeyPress);
             this.TextBoxInnerLength.Leave += new System.EventHandler(this.TextBoxInnerLength_Leave);
             // 
@@ -171,7 +171,7 @@ namespace ORSAPR.View
             this.TextBoxWidth.Name = "TextBoxWidth";
             this.TextBoxWidth.Size = new System.Drawing.Size(203, 22);
             this.TextBoxWidth.TabIndex = 0;
-            this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBoxWidth_TextChanged);
+            this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxWidth_KeyPress);
             this.TextBoxWidth.Leave += new System.EventHandler(this.TextBoxWidth_Leave);
             // 
@@ -193,7 +193,7 @@ namespace ORSAPR.View
             this.TextBoxBladeLength.Name = "TextBoxBladeLength";
             this.TextBoxBladeLength.Size = new System.Drawing.Size(203, 22);
             this.TextBoxBladeLength.TabIndex = 3;
-            this.TextBoxBladeLength.TextChanged += new System.EventHandler(this.TextBoxBladeLength_TextChanged);
+            this.TextBoxBladeLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxBladeLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxBladeLength_KeyPress);
             this.TextBoxBladeLength.Leave += new System.EventHandler(this.TextBoxBladeLength_Leave);
             // 
