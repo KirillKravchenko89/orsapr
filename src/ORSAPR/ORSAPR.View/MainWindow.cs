@@ -68,6 +68,9 @@ namespace ORSAPR.View
         /// </summary>
         private KompasConnector _kompasApp;
 
+        /// <summary>
+        /// выделение памяти под объект vменеджера
+        /// </summary>
         private Manager _manager;
         public MainWindow()
         {

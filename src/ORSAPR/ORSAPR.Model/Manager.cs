@@ -10,12 +10,20 @@ using Kompas6Constants;
 
 namespace ORSAPR.Model
 {
+    /// <summary>
+    /// класс Менеджера
+    /// </summary>
 	public class Manager
 	{
-
+        /// <summary>
+        /// выделение памяти под объект компас коннектора
+        /// </summary>
 		public KompasConnector _kompasApp = new KompasConnector();
 
-        //старая версия
+        /// <summary>
+        /// Конструктор с вложенным классом
+        /// </summary>
+        /// <param name="kompasApp"></param>
         public Manager(KompasConnector kompasApp)
         {
             if (kompasApp == null)
@@ -25,8 +33,10 @@ namespace ORSAPR.Model
             _kompasApp = kompasApp;
         }
 
-
-
+        /// <summary>
+        /// метод создания детали
+        /// </summary>
+        /// <param name="chiselData"></param>
         public void BuildModel(ChiselData chiselData)
         {
 
