@@ -50,8 +50,7 @@ namespace ORSAPR.Model
             set
             {              
                 if (value == 0)
-                {
-                    _width = value;
+                {                   
                     throw new ArgumentException("Invalid chisel width range." +
                         " Сannot be width = 0!");
                 }

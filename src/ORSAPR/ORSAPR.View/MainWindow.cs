@@ -11,7 +11,7 @@ using ORSAPR.Model;
 
 namespace ORSAPR.View
 {
-    public partial class FormParameters : System.Windows.Forms.Form
+    public partial class MainWindow : System.Windows.Forms.Form
     {
         /// <summary>
         /// переменная ошибки ввода параметра ширины
@@ -68,44 +68,10 @@ namespace ORSAPR.View
         /// </summary>
         private KompasConnector _kompasApp;
 
-        public FormParameters()
+        private Manager _manager;
+        public MainWindow()
         {
             InitializeComponent();           
-        }
-
-        /// <summary>
-        /// изменения параметра Enabled у группы типа Textbox
-        /// </summary>
-        /// <param name="state"></param>
-        private void SetAllInputsEnabledState(bool state)
-        {
-            foreach (Control control in Controls)
-            {
-                foreach (Control textbox in control.Controls)
-                {
-                    if (textbox.GetType() == typeof(TextBox))
-                    {
-                        textbox.Enabled = state;
-                    }
-                }
-            }
-        }
-
-        private void TextBoxTextChanged(bool state)
-        {
-            foreach (Control control in Controls)
-            {
-                foreach (Control textbox in control.Controls)
-                {
-                    if (textbox.GetType() == typeof(TextBox))
-                    {
-                       /* if(textbox.TextChanged)
-                        {
-
-                        }*/
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -292,7 +258,7 @@ namespace ORSAPR.View
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="errorMessage"></param>
-        private void IfTextBoxLeave(TextBox textBox, string errorMessage)
+        private void IfTextBoxLeave(TextBox textBox)
         {
             try
             {
@@ -302,7 +268,7 @@ namespace ORSAPR.View
             {
                 OutputAfterErrorTextBox(textBox, exception);
             }
-        }
+        }        
 
         /// <summary>
         /// функция обновления данных фигуры
@@ -403,7 +369,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxWidth_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxWidth, _errorTextBoxWidth);
+            IfTextBoxLeave(TextBoxWidth);
             CheckAffterInput();
         }
 
@@ -424,7 +390,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxLenght_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxLength, _errorTextBoxLength);
+            IfTextBoxLeave(TextBoxLength);
             CheckAffterInput();
         }
 
@@ -445,7 +411,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxHeight_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxHeight, _errorTextBoxHeight);
+            IfTextBoxLeave(TextBoxHeight);
             CheckAffterInput();
         }
 
@@ -466,7 +432,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxBladeLength_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxBladeLength, _errorTextBoxBladeLength);
+            IfTextBoxLeave(TextBoxBladeLength);
             CheckAffterInput();
         }
 
@@ -487,7 +453,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxInnerLength_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxInnerLength, _errorTextBoxInnerLength);
+            IfTextBoxLeave(TextBoxInnerLength);
             CheckAffterInput();
         }
 
@@ -508,7 +474,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void TextBoxInnerWidth_Leave(object sender, EventArgs e)
         {
-            IfTextBoxLeave(TextBoxInnerWidth, _errorTextBoxInnerWidth);
+            IfTextBoxLeave(TextBoxInnerWidth);
             CheckAffterInput();
         }
         /// <summary>
@@ -523,11 +489,11 @@ namespace ORSAPR.View
             {
                 return;
             }
-            Manager _Manager = new Manager(_kompasApp);
+            _manager = new Manager(_kompasApp);
                
-            if (_Manager != null)
+            if (_manager != null)
             {
-                _Manager.BuildModel(_chiselData);
+                _manager.BuildModel(_chiselData);
             }          
         }
 

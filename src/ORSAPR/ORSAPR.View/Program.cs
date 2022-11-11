@@ -16,7 +16,7 @@ namespace ORSAPR.View
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormParameters());
+            Application.Run(new MainWindow());
         }
     }
 }

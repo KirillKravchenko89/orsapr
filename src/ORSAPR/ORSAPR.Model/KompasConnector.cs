@@ -13,15 +13,15 @@ namespace ORSAPR.Model
 {
     public class KompasConnector
     {
-        public KompasObject KompasObject
+        private KompasObject KompasObject
         {
             get;
-            private set;
+            set;
         }
-        public ksDocument3D Document3D
+        private ksDocument3D Document3D
         {
             get;
-            private set;
+            set;
         }
         public ChiselData Parameters
         {
