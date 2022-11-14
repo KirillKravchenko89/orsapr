@@ -1,0 +1,13 @@
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.AssemblyReference.cache
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.GenerateResource.cache
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.CoreCompileInputs.cache
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAPR.View.exe.config
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAPR.View.exe
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAPR.View.pdb
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAPR.Model.dll
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\bin\Debug\ORSAPR.Model.pdb
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.Properties.Resources.resources
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.exe
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.pdb
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.CopyComplete
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.MainWindow.resources
