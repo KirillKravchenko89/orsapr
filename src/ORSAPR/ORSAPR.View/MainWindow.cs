@@ -330,7 +330,10 @@ namespace ORSAPR.View
                 && _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
                 && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
                 && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
-                && _errorTextBoxInnerWidth == ""))
+                && _errorTextBoxInnerWidth == "" )&& (TextBoxWidth.Text != string.Empty
+                && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
+                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text != string.Empty
+                && TextBoxInnerWidth.Text!= string.Empty))
             {
                 ButtonBuild.Enabled = true;
             }
