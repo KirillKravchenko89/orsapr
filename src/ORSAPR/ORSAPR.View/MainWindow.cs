@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ORSAPR.Model;
+using Kompas6API5;
+
 
 namespace ORSAPR.View
 {
@@ -102,13 +104,6 @@ namespace ORSAPR.View
                 }
             }
             textBox.Text = outS;
-
-           /* if (str.Contains("."))
-            {
-                str.Replace(".", ",");
-                textBox.Clear();
-                textBox.AppendText(str.Replace(".", ","));
-            }*/
         }
 
         /// <summary>
@@ -185,7 +180,7 @@ namespace ORSAPR.View
                     textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
                 }
             }
-            if ((Convert.ToString(textBox.Text).All(x => ",0".Contains(x)) && textBox.Text != ""))         
+            if ((Convert.ToString(textBox.Text).All(x => ",0".Contains(x)) && textBox.Text != ""))
             {
                 textBox.Text = "0";
             }
@@ -208,12 +203,12 @@ namespace ORSAPR.View
             {
                 SendKeys.Send("{Tab}");
             }
-            if (e.KeyChar == (char)Keys.Space)
+            if (e.KeyChar == (char)Keys.Space && ButtonBuild.Enabled)
             {
                 Buttonbuild_Click(null, null);                
             }          
-            if (Char.IsNumber(e.KeyChar) | (((e.KeyChar == Convert.ToChar(","))
-                /*|| (e.KeyChar == Convert.ToChar("."))*/) && !textBox.Text.Contains(","))
+            if (Char.IsNumber(e.KeyChar) | ((e.KeyChar == Convert.ToChar(","))
+                && !textBox.Text.Contains(","))
                 | e.KeyChar == '\b' | e.KeyChar == (char)3 | e.KeyChar == (char)22
                 | e.KeyChar == (char)1 | e.KeyChar == (char)24)
             {              
@@ -486,7 +481,7 @@ namespace ORSAPR.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Buttonbuild_Click(object sender, EventArgs e)
-        {     
+        {
             _kompasApp = new KompasConnector();
             if (!_kompasApp.CreateDocument3D())
             {
@@ -507,23 +502,48 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void FormParameters_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string messageBoxText = $"Do you really want to close the window?" +
-               $"{ Environment.NewLine}The entered data will be deleted.";
-            string caption = "Exit";
-            MessageBoxButtons button = MessageBoxButtons.YesNo;
-            MessageBoxIcon icon = MessageBoxIcon.Question;
-            DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon,
-                MessageBoxDefaultButton.Button1);
+            
+            if (_kompasApp == null)
+            {
+                string messageBoxText = $"Do you really want to close the window?" +
+                               $"{ Environment.NewLine}The entered data will be deleted.";
+                string caption = "Exit";
+                MessageBoxButtons button = MessageBoxButtons.YesNo;
+                MessageBoxIcon icon = MessageBoxIcon.Question;
+                DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon,
+                    MessageBoxDefaultButton.Button1);
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+            if (_kompasApp != null)
+            {
+                string messageBoxText = $"Do you want to close the compass application" +
+                    $" together with this window?" +
+                               $"{ Environment.NewLine}The entered data will be deleted.";
+                string caption = "Exit";
+                MessageBoxButtons button = MessageBoxButtons.YesNoCancel;
+                MessageBoxIcon icon = MessageBoxIcon.Question;
+                DialogResult result = MessageBox.Show(messageBoxText, caption, button, icon,
+                    MessageBoxDefaultButton.Button1);
 
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true;
+                if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _kompasApp.DestructApp();
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Kompas Application is already closed!");
+                    }                  
+                }
             }
-            else if(_kompasApp != null)
-            {
-                _kompasApp.DestructApp();
-            }
-        }
-   
+        }   
     }
 }

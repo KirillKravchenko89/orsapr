@@ -74,7 +74,7 @@ namespace ORSAPR.Model
         {
             Document3D = (ksDocument3D)KompasObject.Document3D();
 
-            if (!Document3D.Create(false/*visible*/, false/*build*/))
+            if (!Document3D.Create(false/*visible*/, true/*build*/))
             {
                 return false;
             }
@@ -104,7 +104,6 @@ namespace ORSAPR.Model
 					return false;
 				}
 			}
-
 	
 			if (KompasObject == null)
 			{
@@ -141,11 +140,11 @@ namespace ORSAPR.Model
         /// метод уничтожения приложения компас
         /// </summary>
 		public void DestructApp()
-		{
+        {
             KompasObject.Quit();
             KompasObject = null;
-			Document3D = null;
-			Chisel = null;           
+            Document3D = null;
+            Chisel = null;
         }
 	}
 }

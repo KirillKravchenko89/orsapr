@@ -98,5 +98,16 @@
   <ItemGroup>
     <Content Include="Chisel.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Kompas6API5">
+      <Guid>{0422828C-F174-495E-AC5D-D31014DBBE87}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -281,7 +281,5 @@ namespace ORSAPR.Model
                 _innerWidth = value;
             }
         }
-
-
     }
 }

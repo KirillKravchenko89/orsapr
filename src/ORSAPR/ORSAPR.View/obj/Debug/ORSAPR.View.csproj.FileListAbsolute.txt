@@ -11,3 +11,5 @@ C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAP
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.pdb
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.CopyComplete
 C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.MainWindow.resources
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\Interop.Kompas6API5.dll
+C:\Users\Кирилл\source\repos\ORSAPR\src\ORSAPR\ORSAPR.View\obj\Debug\ORSAPR.View.csproj.ResolveComReference.cache

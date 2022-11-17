@@ -241,7 +241,7 @@ namespace ORSAPR.View
             this.LabelWidth.TabIndex = 1;
             this.LabelWidth.Text = "W - Chisel width";
             // 
-            // FormParameters
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -251,7 +251,7 @@ namespace ORSAPR.View
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(491, 700);
             this.MinimumSize = new System.Drawing.Size(491, 700);
-            this.Name = "FormParameters";
+            this.Name = "MainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chisel Parameters";
