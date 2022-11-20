@@ -80,7 +80,7 @@ namespace ORSAPR.Model
                         if (value < 10 * _width || value >= 10 * _width + 10
                             || value < 100 || value > 300)
                         {
-                            if (_width == 30)
+                            if (_width >= 29)
                             {
                                 throw new ArgumentException($"Invalid chisel lenght range," +
                                 $" please check the entered parameters according to the range:" +
@@ -94,7 +94,7 @@ namespace ORSAPR.Model
                         
                     }                   
                 }
-                else if (value < 100 || value > 300)
+                if (value < 100 || value > 300)
                 {
                     throw new ArgumentException("Invalid chisel lenght range, please check " +
                         "the entered parameters according to the range: 100mm >= L >= 300mm.");
@@ -265,7 +265,30 @@ namespace ORSAPR.Model
                                     $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
                             }
                         }
-                        
+                    }
+                    if((_innerLength <= 10 || _innerLength >= 75) && (_width >= 10 && _width <= 30))
+                    {
+                        if (value < 5 || value > _innerLength * 0.5)
+                        {
+                            throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                $" range, please check the entered parameters according" +
+                                $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                        }
+                    }
+                    if ((_innerLength >= 10 && _innerLength <= 75) && (_width <= 10 || _width >= 30))
+                    {
+                        if (value < 5 || value > 0.5 * _width)
+                        {
+                            throw new ArgumentException($"Invalid chisel inner cotout width" +
+                                $" range, please check the entered parameters according" +
+                                $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");
+                        }
+                    }
+                    if ((_innerLength <= 10 || _innerLength >= 75) && (_width <= 10 || _width >= 30))
+                    {
+                        throw new ArgumentException("Invalid chisel inner cotout width range," +
+                        " please check the entered parameters according" +
+                        " to the range: 5mm >= w1 >= 15mm.");
                     }
                 }
                 else if (value < 5 || value > 15)
