@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KompasAPI7;
 using Kompas6API5;
 using Kompas6Constants3D;
-using Kompas6Constants;
 using System.Runtime.InteropServices;
 
 namespace ORSAPR.Model
@@ -40,7 +34,7 @@ namespace ORSAPR.Model
         public ChiselData Parameters
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -71,15 +65,16 @@ namespace ORSAPR.Model
         /// </summary>
         /// <returns></returns>
         public bool CreateDocument3D()
-        {
-            Document3D = (ksDocument3D)KompasObject.Document3D();
+        {          
+            Document3D = (ksDocument3D)KompasObject.Document3D();           
 
             if (!Document3D.Create(false/*visible*/, true/*build*/))
             {
                 return false;
             }
-
+           
             Chisel = (ksPart)Document3D.GetPart((short)Part_Type.pTop_Part);
+           
             if (Chisel == null)
             {
                 return false;

@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ORSAPR.Model;
-using Kompas6API5;
-
 
 namespace ORSAPR.View
 {
@@ -88,7 +81,7 @@ namespace ORSAPR.View
             /*string str = textBox.Text;*/
             string tmp = textBox.Text.Trim();
             string outS = string.Empty;
-            bool comma = true;
+            bool comma = true;            
             foreach (char ch in tmp)
             {
                 if (Char.IsDigit(ch) || (ch == ',' && comma))
@@ -165,21 +158,26 @@ namespace ORSAPR.View
                     textBox.Text = textBox.Text.Insert(0, "0");
                 }
             }
+            
         }
-
+        
         /// <summary>
         /// функция одбработчик ввода запятой последним символом
         /// </summary>
         /// <param name="textBox"></param>
         private void EndsWithComma(TextBox textBox)
         {
+            if (textBox.Text.Contains(","))
+            {
+                textBox.Text = textBox.Text.TrimEnd('0');
+            }
             if (Convert.ToString(textBox.Text).EndsWith(","))
             {
                 if (textBox.Text.Length != 0)
                 {
                     textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
                 }
-            }
+            }            
             if ((Convert.ToString(textBox.Text).All(x => ",0".Contains(x)) && textBox.Text != ""))
             {
                 textBox.Text = "0";
@@ -187,8 +185,8 @@ namespace ORSAPR.View
             else if (!Convert.ToString(textBox.Text).Equals("0"))
             {
                 textBox.Text = textBox.Text.TrimStart('0');
-
             }
+
         }
 
         /// <summary>
@@ -332,7 +330,7 @@ namespace ORSAPR.View
                 && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
                 && _errorTextBoxInnerWidth == "" )&& (TextBoxWidth.Text != string.Empty
                 && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
-                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text != string.Empty
+                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text!=string.Empty
                 && TextBoxInnerWidth.Text!= string.Empty))
             {
                 ButtonBuild.Enabled = true;
