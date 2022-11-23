@@ -26,16 +26,7 @@ namespace ORSAPR.Model
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// поле параметров зубила
-        /// </summary>
-        public ChiselData Parameters
-        {
-            get;
-            private set;
-        }
+        }     
 
         /// <summary>
         /// поле детали

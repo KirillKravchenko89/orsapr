@@ -97,6 +97,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Chisel.ico" />
+    <None Include="Resources\ChiselPeak3D.png" />
+    <None Include="Resources\Chisel3D.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Kompas6API5">

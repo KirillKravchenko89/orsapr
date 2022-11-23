@@ -67,6 +67,8 @@ namespace ORSAPR.View
         /// выделение памяти под объект vменеджера
         /// </summary>
         private Manager _manager;
+
+
         public MainWindow()
         {
             InitializeComponent();           
@@ -203,7 +205,7 @@ namespace ORSAPR.View
             }
             if (e.KeyChar == (char)Keys.Space && ButtonBuild.Enabled)
             {
-                Buttonbuild_Click(null, null);                
+                ButtonBuild_Click(null, null);                
             }          
             if (Char.IsNumber(e.KeyChar) | ((e.KeyChar == Convert.ToChar(","))
                 && !textBox.Text.Contains(","))
@@ -339,7 +341,47 @@ namespace ORSAPR.View
             {
                 ButtonBuild.Enabled = false;
             }
-        }       
+        }
+
+        /// <summary>
+        /// обработчик события выбора модели зубила
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RadioButton_Click(object sender, EventArgs e)
+        {
+            if(RadioButtonLocksmith.Checked == true)
+            {
+                PanelPictureChisel.BackgroundImage = Properties.Resources.Chisel3D;
+                LabelInnerLength.Visible = true;
+                LabelInnerWidth.Visible = true;
+                TextBoxInnerLength.Visible = true;
+                TextBoxInnerWidth.Visible = true;
+
+                TextBoxInnerLength.Text = string.Empty;
+                TextBoxInnerWidth.Text = string.Empty;
+                LabelWidth.Text = "W - Chisel width";
+                LabelLength.Text = "L - Chisel length";
+                LabelHeight.Text = "H - Chisel height";
+                LabelBladeLength.Text = "l1 – Chisel blade length";
+            }
+
+            if (RadioButtonPeak.Checked == true)
+            {
+                PanelPictureChisel.BackgroundImage = Properties.Resources.ChiselPeak3D;
+                LabelInnerLength.Visible = false;
+                LabelInnerWidth.Visible = false;
+                TextBoxInnerLength.Visible = false;
+                TextBoxInnerWidth.Visible = false;
+
+                TextBoxInnerLength.Text = "10";
+                TextBoxInnerWidth.Text = "5";
+                LabelWidth.Text ="W - Chisel blade width";
+                LabelLength.Text ="L - Chisel length";
+                LabelHeight.Text = "D - Chisel diameter";
+                LabelBladeLength.Text = "l1 – Chisel blade length";                            
+            }
+        }
 
         /// <summary>
         /// обработчик события изменения текста в текстбоксе
@@ -481,7 +523,7 @@ namespace ORSAPR.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Buttonbuild_Click(object sender, EventArgs e)
+        private void ButtonBuild_Click(object sender, EventArgs e)
         {
             _kompasApp = new KompasConnector();
             if (!_kompasApp.CreateDocument3D())
@@ -492,7 +534,15 @@ namespace ORSAPR.View
                
             if (_manager != null)
             {
-                _manager.BuildModel(_chiselData);
+                if(RadioButtonLocksmith.Checked == true)
+                {
+                    _manager.BuildModelLocksmith(_chiselData);
+                }
+                else if(RadioButtonPeak.Checked == true)
+                {
+                    _manager.BuildModelPeak(_chiselData);
+                }
+               
             }          
         }
 
@@ -545,6 +595,6 @@ namespace ORSAPR.View
                     }                  
                 }
             }
-        }   
+        }    
     }
 }
