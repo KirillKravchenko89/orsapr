@@ -98,6 +98,7 @@ namespace ORSAPR.View
             this.TextBoxInnerWidth.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxInnerWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerWidth_KeyPress);
             this.TextBoxInnerWidth.Leave += new System.EventHandler(this.TextBoxInnerWidth_Leave);
+            this.TextBoxInnerWidth.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // LabelParameter
             // 
@@ -120,6 +121,7 @@ namespace ORSAPR.View
             this.TextBoxLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxLenght_KeyPress);
             this.TextBoxLength.Leave += new System.EventHandler(this.TextBoxLenght_Leave);
+            this.TextBoxLength.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // ButtonBuild
             // 
@@ -144,6 +146,7 @@ namespace ORSAPR.View
             this.TextBoxHeight.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxHeight_KeyPress);
             this.TextBoxHeight.Leave += new System.EventHandler(this.TextBoxHeight_Leave);
+            this.TextBoxHeight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // TextBoxInnerLength
             // 
@@ -155,6 +158,7 @@ namespace ORSAPR.View
             this.TextBoxInnerLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxInnerLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxInnerLength_KeyPress);
             this.TextBoxInnerLength.Leave += new System.EventHandler(this.TextBoxInnerLength_Leave);
+            this.TextBoxInnerLength.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // TextBoxWidth
             // 
@@ -166,6 +170,7 @@ namespace ORSAPR.View
             this.TextBoxWidth.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxWidth_KeyPress);
             this.TextBoxWidth.Leave += new System.EventHandler(this.TextBoxWidth_Leave);
+            this.TextBoxWidth.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // LabelBladeLength
             // 
@@ -188,6 +193,7 @@ namespace ORSAPR.View
             this.TextBoxBladeLength.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.TextBoxBladeLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxBladeLength_KeyPress);
             this.TextBoxBladeLength.Leave += new System.EventHandler(this.TextBoxBladeLength_Leave);
+            this.TextBoxBladeLength.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextBox_MouseMove);
             // 
             // LabelInnerLength
             // 

@@ -71,7 +71,8 @@ namespace ORSAPR.View
 
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            CheckAffterInput();
         }
 
         /// <summary>
@@ -239,7 +240,7 @@ namespace ORSAPR.View
                 }
                 ExceptionController(errorMessage, textBox);
                 toolTipInformation.SetToolTip(textBox, string.Empty);
-                errorMessage = string.Empty;               
+                errorMessage = string.Empty;
             }          
             catch (ArgumentException exception)
             {
@@ -249,6 +250,104 @@ namespace ORSAPR.View
             {
                 OutputAfterErrorTextBox(textBox, exception);
             }
+        }
+
+
+        private void InformationTool()
+        {
+            if (TextBoxWidth.BackColor == _emptyColor)
+            {
+                toolTipInformation.SetToolTip(TextBoxWidth, "10mm <= W <= 30mm");
+            }
+            if (TextBoxLength.BackColor == _emptyColor)
+            {
+                if (TextBoxWidth.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxLength, "100mm <= L <= 300mm");
+                }
+                if (TextBoxWidth.BackColor == _trueColor && Convert.ToDouble(TextBoxWidth.Text) == 30)
+                {
+                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L <= 300mm");
+                }
+                else if (TextBoxWidth.BackColor == _trueColor && Convert.ToDouble(TextBoxWidth.Text) >= 29)
+                {
+                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L < 300mm");
+                }
+                else if (TextBoxWidth.BackColor == _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L < {10 * _chiselData.Width + 10}mm");
+                }
+            }
+            if (TextBoxHeight.BackColor == _emptyColor)
+            {
+                if (TextBoxWidth.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxHeight, "6mm <= H <= 24mm");
+                }
+                if (TextBoxWidth.BackColor == _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxHeight, $" {0.6 * _chiselData.Width}mm <= H <= {0.8 * _chiselData.Width}mm.");
+                }
+            }
+            if (TextBoxBladeLength.BackColor == _emptyColor)
+            {
+                if (TextBoxLength.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxBladeLength, "40mm <= l1 <= 150mm");
+                }
+                if (TextBoxLength.BackColor == _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxBladeLength, $"{0.4 * _chiselData.Length}mm <= l1 <= {0.5 * _chiselData.Length}mm");
+                }
+            }
+            if (TextBoxInnerLength.BackColor == _emptyColor)
+            {
+                if (TextBoxLength.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxInnerLength, "10mm <= l2 <= 75mm");
+                }
+                if (TextBoxLength.BackColor == _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxInnerLength, $"10mm <= l2 <= {0.25 * _chiselData.Length}mm");
+                }
+            }
+            if (TextBoxInnerWidth.BackColor == _emptyColor)
+            {
+                if(TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxInnerWidth, "5mm <= w1 <= 15mm");
+                }
+                if(TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor == _trueColor)
+                {
+                    if(Convert.ToDouble(TextBoxWidth.Text) < Convert.ToDouble(TextBoxInnerLength.Text))
+                    {
+                        toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
+                    }
+                    else
+                    {
+                        toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
+                    }
+                }
+                if(TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor != _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
+                }
+                if(TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor == _trueColor)
+                {
+                    toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
+                }
+                
+            }
+        }
+
+        /// <summary>
+        /// Функция информации о границах параметров
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            InformationTool();
         }
 
         /// <summary>
@@ -378,7 +477,7 @@ namespace ORSAPR.View
                 TextBoxInnerWidth.Text = "5";
                 LabelWidth.Text ="W - Chisel blade width";
                 LabelLength.Text ="L - Chisel length";
-                LabelHeight.Text = "D - Chisel diameter";
+                LabelHeight.Text = "D/H - Chisel diameter";
                 LabelBladeLength.Text = "l1 – Chisel blade length";                            
             }
         }
@@ -595,6 +694,6 @@ namespace ORSAPR.View
                     }                  
                 }
             }
-        }    
+        }
     }
 }
