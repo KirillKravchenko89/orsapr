@@ -42,7 +42,7 @@ namespace ORSAPR.View
         /// переменная цвета поля ошибки
         /// </summary>
         private readonly Color _errorColor = Color.LightPink;
-        
+
         /// <summary>
         /// переменная цвета пустого поля
         /// </summary>
@@ -56,7 +56,7 @@ namespace ORSAPR.View
         /// <summary>
         /// выделение памяти под объект параметра
         /// </summary>
-        private ChiselData _chiselData = new ChiselData();       
+        private ChiselData _chiselData = new ChiselData();
 
         /// <summary>
         /// выделение памяти под объект компас приложения
@@ -67,7 +67,6 @@ namespace ORSAPR.View
         /// выделение памяти под объект vменеджера
         /// </summary>
         private Manager _manager;
-
 
         public MainWindow()
         {
@@ -244,15 +243,111 @@ namespace ORSAPR.View
             }          
             catch (ArgumentException exception)
             {
-                OutputAfterErrorTextBox(textBox, exception);
+                OutputAfterErrorTextBox(textBox, exception);               
             }
             catch (Exception exception)
             {
-                OutputAfterErrorTextBox(textBox, exception);
+                OutputAfterErrorTextBox(textBox, exception);              
             }
         }
 
+        /// <summary>
+        /// функция обработчика события выхода из текстбокса
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="errorMessage"></param>
+        private void IfTextBoxLeave(TextBox textBox)
+        {
+            try
+            {
+                EndsWithComma(textBox);
+            }
+            catch (ArgumentException exception)
+            {
+                OutputAfterErrorTextBox(textBox, exception);              
+            }
+        }        
 
+        /// <summary>
+        /// функция обновления данных фигуры
+        /// </summary>
+        private void ReloadChiselData(TextBox textBox, double chiselData)
+        {           
+            if ((chiselData == _chiselData.Width) && (textBox == TextBoxWidth) &&
+                TextBoxWidth.Text != string.Empty)
+            {              
+                _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);                                   
+            }         
+            if ((chiselData == _chiselData.Length) && (textBox == TextBoxLength) &&
+                TextBoxLength.Text != string.Empty)
+            {              
+                _chiselData.Length = Convert.ToDouble(TextBoxLength.Text);                             
+            }        
+            if ((chiselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
+                TextBoxHeight.Text != string.Empty)
+            {              
+                _chiselData.Height = Convert.ToDouble(TextBoxHeight.Text);      
+            }
+            if ((chiselData == _chiselData.BladeLength) && (textBox == TextBoxBladeLength) &&
+               TextBoxBladeLength.Text != string.Empty)
+            {
+                _chiselData.BladeLength = Convert.ToDouble(TextBoxBladeLength.Text);
+            }
+            if ((chiselData == _chiselData.InnerLength) && (textBox == TextBoxInnerLength) &&
+                TextBoxInnerLength.Text != string.Empty)
+            {
+                _chiselData.InnerLength = Convert.ToDouble(TextBoxInnerLength.Text);
+            }
+            if ((chiselData == _chiselData.InnerWidth) && (textBox == TextBoxInnerWidth) &&
+                TextBoxInnerWidth.Text != string.Empty)
+            {
+                _chiselData.InnerWidth = Convert.ToDouble(TextBoxInnerWidth.Text);
+            }
+        }
+      
+        /// <summary>
+        /// функция проверки правильности введенных данных во всех полях при изменении одного
+        /// </summary>
+        private void CheckAffterInput()
+        {
+            this._chiselData = null;
+            this._chiselData = new ChiselData();
+            string errorMessage = string.Empty;
+            IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
+            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
+            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
+            IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
+            IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
+            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
+            OnOffBuildButton();
+        }
+
+        /// <summary>
+        /// функция активатор кнопки Build
+        /// </summary>
+        private void OnOffBuildButton()
+        {
+            if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
+                && _chiselData.BladeLength != 0 && _chiselData.InnerLength != 0
+                && _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
+                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
+                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
+                && _errorTextBoxInnerWidth == "" )&& (TextBoxWidth.Text != string.Empty
+                && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
+                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text!=string.Empty
+                && TextBoxInnerWidth.Text!= string.Empty))
+            {
+                ButtonBuild.Enabled = true;
+            }
+            else
+            {
+                ButtonBuild.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// функция вывода информации по допустимым параметрам ввода
+        /// </summary>
         private void InformationTool()
         {
             if (TextBoxWidth.BackColor == _emptyColor)
@@ -313,13 +408,13 @@ namespace ORSAPR.View
             }
             if (TextBoxInnerWidth.BackColor == _emptyColor)
             {
-                if(TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor != _trueColor)
+                if (TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor != _trueColor)
                 {
                     toolTipInformation.SetToolTip(TextBoxInnerWidth, "5mm <= w1 <= 15mm");
                 }
-                if(TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor == _trueColor)
+                if (TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor == _trueColor)
                 {
-                    if(Convert.ToDouble(TextBoxWidth.Text) < Convert.ToDouble(TextBoxInnerLength.Text))
+                    if (Convert.ToDouble(TextBoxWidth.Text) < Convert.ToDouble(TextBoxInnerLength.Text))
                     {
                         toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
                     }
@@ -328,118 +423,25 @@ namespace ORSAPR.View
                         toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
                     }
                 }
-                if(TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor != _trueColor)
+                if (TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor != _trueColor)
                 {
                     toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
                 }
-                if(TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor == _trueColor)
+                if (TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor == _trueColor)
                 {
                     toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
                 }
-                
             }
         }
 
         /// <summary>
-        /// Функция информации о границах параметров
+        /// обраьотчик события наведения мыши на текстовое поле
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void TextBox_MouseMove(object sender, MouseEventArgs e)
         {
             InformationTool();
-        }
-
-        /// <summary>
-        /// функция обработчика события выхода из текстбокса
-        /// </summary>
-        /// <param name="textBox"></param>
-        /// <param name="errorMessage"></param>
-        private void IfTextBoxLeave(TextBox textBox)
-        {
-            try
-            {
-                EndsWithComma(textBox);
-            }
-            catch (ArgumentException exception)
-            {
-                OutputAfterErrorTextBox(textBox, exception);
-            }
-        }        
-
-        /// <summary>
-        /// функция обновления данных фигуры
-        /// </summary>
-        private void ReloadChiselData(TextBox textBox, double chiselData)
-        {
-            if ((chiselData == _chiselData.Width) && (textBox == TextBoxWidth) &&
-                TextBoxWidth.Text != string.Empty)
-            {              
-                _chiselData.Width = Convert.ToDouble(TextBoxWidth.Text);                                   
-            }         
-            if ((chiselData == _chiselData.Length) && (textBox == TextBoxLength) &&
-                TextBoxLength.Text != string.Empty)
-            {              
-                _chiselData.Length = Convert.ToDouble(TextBoxLength.Text);                             
-            }        
-            if ((chiselData == _chiselData.Height) && (textBox == TextBoxHeight) &&
-                TextBoxHeight.Text != string.Empty)
-            {              
-                _chiselData.Height = Convert.ToDouble(TextBoxHeight.Text);      
-            }
-            if ((chiselData == _chiselData.BladeLength) && (textBox == TextBoxBladeLength) &&
-               TextBoxBladeLength.Text != string.Empty)
-            {
-                _chiselData.BladeLength = Convert.ToDouble(TextBoxBladeLength.Text);
-            }
-            if ((chiselData == _chiselData.InnerLength) && (textBox == TextBoxInnerLength) &&
-                TextBoxInnerLength.Text != string.Empty)
-            {
-                _chiselData.InnerLength = Convert.ToDouble(TextBoxInnerLength.Text);
-            }
-            if ((chiselData == _chiselData.InnerWidth) && (textBox == TextBoxInnerWidth) &&
-                TextBoxInnerWidth.Text != string.Empty)
-            {
-                _chiselData.InnerWidth = Convert.ToDouble(TextBoxInnerWidth.Text);
-            }
-        }
-      
-        /// <summary>
-        /// функция проверки правильности введенных данных во всех полях при изменении одного
-        /// </summary>
-        private void CheckAffterInput()
-        {
-           string errorMessage = string.Empty;
-            IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
-            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
-            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
-            IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
-            IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
-            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
-            OnOffBuildButton();
-        }
-
-        /// <summary>
-        /// функция активатор кнопки Build
-        /// </summary>
-        private void OnOffBuildButton()
-        {
-            if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
-                && _chiselData.BladeLength != 0 && _chiselData.InnerLength != 0
-                && _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
-                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
-                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
-                && _errorTextBoxInnerWidth == "" )&& (TextBoxWidth.Text != string.Empty
-                && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
-                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text!=string.Empty
-                && TextBoxInnerWidth.Text!= string.Empty))
-            {
-                ButtonBuild.Enabled = true;
-            }
-            else
-            {
-                ButtonBuild.Enabled = false;
-            }
         }
 
         /// <summary>

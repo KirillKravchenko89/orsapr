@@ -44,14 +44,14 @@ namespace ORSAPR.Model
         {
             get => _width;
             set
-            {              
+            {
                 if (value == 0)
-                {                   
+                {
                     throw new ArgumentException("Invalid chisel width range." +
                         " Сannot be width = 0!");
                 }
                 if (value < 10 || value > 30)
-                {                 
+                {
                     throw new ArgumentException("Invalid chisel width range, please check the" +
                     " entered parameters according to the range: 10mm <= W <= 30mm.");
                 }

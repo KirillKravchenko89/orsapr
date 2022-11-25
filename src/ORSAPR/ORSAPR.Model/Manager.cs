@@ -82,10 +82,11 @@ namespace ORSAPR.Model
         /// <param name="chiselData"></param>
         public void BuildModelLocksmith(ChiselData chiselData)
         {
-            TopLocksmith(chiselData);
-            InnerCutoutLocksmith(chiselData);
-            BladeChamferLocksmith(chiselData);
-            HandleFilletLocksmith(chiselData);
+            var Chisel = _kompasApp.Chisel;
+            TopLocksmith(chiselData, Chisel);
+            InnerCutoutLocksmith(chiselData, Chisel);
+            BladeChamferLocksmith(chiselData, Chisel);
+            HandleFilletLocksmith(chiselData, Chisel);
         }
 
         /// <summary>
@@ -94,19 +95,19 @@ namespace ORSAPR.Model
         /// <param name="chiselData"></param>
         public void BuildModelPeak(ChiselData chiselData)
         {
-            TopPeak(chiselData);
-            BladePeak(chiselData);
-            BladeChamferPeak(chiselData);
-            HandleFilletPeak(chiselData);
+            var Chisel = _kompasApp.Chisel;
+            TopPeak(chiselData, Chisel);
+            BladePeak(chiselData, Chisel);
+            BladeChamferPeak(chiselData, Chisel);
+            HandleFilletPeak(chiselData, Chisel);
         }
 
         /// <summary>
         /// функция построения основания зубила пики
         /// </summary>
         /// <param name="chiselData"></param>
-        private void TopPeak(ChiselData chiselData)
-        {
-            var Chisel = _kompasApp.Chisel;
+        private void TopPeak(ChiselData chiselData, ksPart Chisel)
+        {           
             // Эскиз ручки
             ksEntity planeXOZ = (ksEntity)Chisel.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
             ksEntity SketchTop = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_sketch);
@@ -156,9 +157,8 @@ namespace ORSAPR.Model
         /// функция построения лезвия зубила пики
         /// </summary>
         /// <param name="chiselData"></param>
-        private void BladePeak(ChiselData chiselData)
-        {
-            var Chisel = _kompasApp.Chisel;
+        private void BladePeak(ChiselData chiselData, ksPart Chisel)
+        {       
             //эскиз лезвия
             ksEntity SketchBlade = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_sketch);
             ksEntity ksEntityPlaneOffset =
@@ -227,9 +227,8 @@ namespace ORSAPR.Model
         /// функция построения фасок зубила пики
         /// </summary>
         /// <param name="chiselData"></param>
-        private void BladeChamferPeak(ChiselData chiselData)
+        private void BladeChamferPeak(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             // эскиз фаски вверх
             ksEntity iChamfer = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
             if (iChamfer != null)
@@ -335,9 +334,8 @@ namespace ORSAPR.Model
         /// функция построения скругления зубила пики
         /// </summary>
         /// <param name="chiselData"></param>
-        private void HandleFilletPeak(ChiselData chiselData)
+        private void HandleFilletPeak(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             /// Создание скругления
             ksEntity iFillet = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_fillet);
             if (iFillet != null)
@@ -363,9 +361,8 @@ namespace ORSAPR.Model
         /// функция построения основания слесарного зубила
         /// </summary>
         /// <param name="chiselData"></param>
-        private void TopLocksmith(ChiselData chiselData)
+        private void TopLocksmith(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             // получим интерфейс базовой плоскости XOY
             ksEntity planeXOY = (ksEntity)Chisel.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
             ksEntity iSketch = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_sketch);
@@ -417,9 +414,8 @@ namespace ORSAPR.Model
         /// функция построения внутреннего выреза слесарного зубила
         /// </summary>
         /// <param name="chiselData"></param>
-        private void InnerCutoutLocksmith(ChiselData chiselData)
+        private void InnerCutoutLocksmith(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             // создадим новый эскиз         
             ksEntity entitySketch2 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_sketch);
             ksEntity ksEntityPlaneOffset =
@@ -480,9 +476,8 @@ namespace ORSAPR.Model
        /// функция построения фаски лезвия слесарного зубила
        /// </summary>
        /// <param name="chiselData"></param>
-        private void BladeChamferLocksmith(ChiselData chiselData)
+        private void BladeChamferLocksmith(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             ksEntity iChamfer = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
             if (iChamfer != null)
             {
@@ -568,9 +563,8 @@ namespace ORSAPR.Model
         /// сборщик скруглений слесарного зубила
         /// </summary>
         /// <param name="chiselData"></param>
-        private void HandleFilletLocksmith(ChiselData chiselData)
+        private void HandleFilletLocksmith(ChiselData chiselData, ksPart Chisel)
         {
-            var Chisel = _kompasApp.Chisel;
             /// Создание скругления
             ksEntity iFillet = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_fillet);
             if (iFillet != null)
