@@ -28,55 +28,6 @@ namespace ORSAPR.Model
         }
 
         /// <summary>
-        /// функция рассчета параметров эскиза слесарного зубила
-        /// </summary>
-        /// <param name="chiselData"></param>
-        /// <param name="iDocument2D"></param>
-        /// <returns></returns>
-        private ksDocument2D CalculateTopSketchParamethersLocksmith(ChiselData chiselData,
-            ksDocument2D iDocument2D)
-        {
-            double x0, y0, x1, y1;
-
-            x0 = -0.5 * chiselData.Width;
-            y0 = -0.5 * chiselData.Length;
-            x1 = 0.5 * chiselData.Width;
-            y1 = 0.5 * chiselData.Length;
-
-            iDocument2D.ksLineSeg(x0, y0, x1, y0, 1);
-            iDocument2D.ksLineSeg(x1, y0, x1, y1, 1);
-            iDocument2D.ksLineSeg(x1, y1, x0, y1, 1);
-            iDocument2D.ksLineSeg(x0, y1, x0, y0, 1);
-
-            return iDocument2D;
-        }
-
-        /// <summary>
-        /// функция расчета параметров для выреза слесарного зубила
-        /// </summary>
-        /// <param name="chiselData"></param>
-        /// <param name="iDocument2D"></param>
-        /// <returns></returns>
-        private ksDocument2D CalculateInnerCotoutSketchParamethersLocksmith(ChiselData chiselData,
-            ksDocument2D iDocument2D)
-        {
-            double x0, y0, x1, y1;
-
-            x0 = -(chiselData.Width / 2) + (0.5 * (chiselData.Width - chiselData.InnerWidth));
-            y0 = -((0.5 * chiselData.Length) - (0.15 * chiselData.Length));
-
-            x1 = 0.5 * chiselData.Width - (0.5 * (chiselData.Width - chiselData.InnerWidth));
-            y1 = -(0.5 * chiselData.Length) + (0.15 * chiselData.Length) + chiselData.InnerLength;
-
-            iDocument2D.ksLineSeg(x0, y0, x0, y1, 1);
-            iDocument2D.ksLineSeg(x0, y1, x1, y1, 1);
-            iDocument2D.ksLineSeg(x1, y1, x1, y0, 1);
-            iDocument2D.ksLineSeg(x1, y0, x0, y0, 1);
-
-            return iDocument2D;
-        }
-
-        /// <summary>
         /// функция сборки слесарного зубила
         /// </summary>
         /// <param name="chiselData"></param>
@@ -100,6 +51,57 @@ namespace ORSAPR.Model
             BladePeak(chiselData, Chisel);
             BladeChamferPeak(chiselData, Chisel);
             HandleFilletPeak(chiselData, Chisel);
+        }
+
+        /// <summary>
+        /// функция расчета параметров для выреза слесарного зубила
+        /// </summary>
+        /// <param name="chiselData"></param>
+        /// <param name="iDocument2D"></param>
+        /// <returns></returns>
+        private ksDocument2D CalculateSketchParamethers(ChiselData chiselData,
+            ksDocument2D iDocument2D, double x0, double y0, double x1, double y1)
+        {
+            iDocument2D.ksLineSeg(x0, y0, x0, y1, 1);
+            iDocument2D.ksLineSeg(x0, y1, x1, y1, 1);
+            iDocument2D.ksLineSeg(x1, y1, x1, y0, 1);
+            iDocument2D.ksLineSeg(x1, y0, x0, y0, 1);
+
+            return iDocument2D;
+        }
+       
+        /// <summary>
+        /// функция создания фаски
+        /// </summary>
+        /// <param name="Chisel"></param>
+        /// <param name="transfer"></param>
+        /// <param name="distance1"></param>
+        /// <param name="distance2"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        private void ChamferBuilder(ksPart Chisel, bool transfer, double distance1, double distance2,
+            double x, double y, double z)
+        {
+            ksEntity iChamfer = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
+            if (iChamfer != null)
+            {
+                ksChamferDefinition chamferDefinition =
+                    (ksChamferDefinition)iChamfer.GetDefinition();
+                if (chamferDefinition != null)
+                {
+                    chamferDefinition.tangent = true;
+                    chamferDefinition.SetChamferParam(transfer, distance1,
+                        distance2);
+                    var ar = chamferDefinition.array();
+
+                    EntityCollection iCollection = Chisel.
+                        EntityCollection((short)Obj3dType.o3d_edge);
+                    iCollection.SelectByPoint(x, y, z);
+                    ar.Add(iCollection.Last());
+                    iChamfer.Create();
+                }
+            }
         }
 
         /// <summary>
@@ -184,14 +186,12 @@ namespace ORSAPR.Model
                     SketchBlade.Create();         // создадим эскиз
                     ksDocument2D iDocument2D = (ksDocument2D)sketchDef2.BeginEdit();
                     //method Calculate
-                    double x0 = -0.5 * chiselData.Height;
-                    double y0 = -0.5 * chiselData.Width;
-                    double x1 = 0.5 * chiselData.Height;
-                    double y1 = 0.5 * chiselData.Width;
-                    iDocument2D.ksLineSeg(x0, y0, x0, y1, 1);
-                    iDocument2D.ksLineSeg(x0, y1, x1, y1, 1);
-                    iDocument2D.ksLineSeg(x1, y1, x1, y0, 1);
-                    iDocument2D.ksLineSeg(x1, y0, x0, y0, 1);
+
+                    CalculateSketchParamethers(chiselData, iDocument2D,
+                        (-0.5 * chiselData.Height),//x0
+                        (-0.5 * chiselData.Width),//y0
+                        (0.5 * chiselData.Height),//x1
+                        (0.5 * chiselData.Width));//y1
 
                     sketchDef2.EndEdit();
 
@@ -229,106 +229,28 @@ namespace ORSAPR.Model
         /// <param name="chiselData"></param>
         private void BladeChamferPeak(ChiselData chiselData, ksPart Chisel)
         {
-            // эскиз фаски вверх
-            ksEntity iChamfer = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-            if (iChamfer != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer.GetDefinition();
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(true, 0.5 * chiselData.Height,
-                        0.5 * chiselData.BladeLength);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection =
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, (0.5 * chiselData.Length)
-                        - (0.5 * chiselData.BladeLength), 0.5 * chiselData.Height);
-                    ar.Add(iCollection.Last());
-
-
-                    iChamfer.Create();
-                }
-            }
-
-            ksEntity iChamfer2 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-            if (iChamfer2 != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer2.GetDefinition();
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(false, 0.5 * chiselData.BladeLength,
-                        chiselData.BladeLength / 40);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection =
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length, -0.5 * chiselData.Width);
-                    ar.Add(iCollection.Last());
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length, 0.5 * chiselData.Width);
-                    ar.Add(iCollection.Last());
-
-                    iChamfer2.Create();
-                }
-            }
-
-            ksEntity iChamfer3 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-            if (iChamfer3 != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer3.GetDefinition();
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(true, 0.5 * chiselData.Height * 0.7662626,
-                        chiselData.BladeLength);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection = 
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0.5 * chiselData.Height, 0.5 * chiselData.Length, 0);
-                    ar.Add(iCollection.Last());
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(-0.5 * chiselData.Height, 0.5 * chiselData.Length, 0);
-                    ar.Add(iCollection.Last());
-
-                    iChamfer3.Create();
-                }
-            }
-            ksEntity iChamfer4 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-
-            if (iChamfer4 != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer4.GetDefinition();
-
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(false, chiselData.BladeLength / 40,
-                        (0.7 / 3) * 0.5 * chiselData.Height);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection =
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-
-                    iCollection.SelectByPoint((0.5 * chiselData.Height)
-                        - (0.5 * chiselData.Height * 0.7662626), 0.5 * chiselData.Length, 0);
-                    ar.Add(iCollection.Last());
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(-0.5 * chiselData.Height
-                        + (0.5 * chiselData.Height * 0.7662626), 0.5 * chiselData.Length, 0);
-                    ar.Add(iCollection.Last());
-
-                    iChamfer4.Create();
-                }
-            }
+            //фаска вверх к ручке
+            ChamferBuilder(Chisel, true, 0.5 * chiselData.Height, 0.5 * chiselData.BladeLength, 0,
+            (0.5 * chiselData.Length) - (0.5 * chiselData.BladeLength), 0.5 * chiselData.Height);
+            //боковая фаска
+            ChamferBuilder(Chisel, false, 0.5 * chiselData.BladeLength,
+            chiselData.BladeLength / 40, 0, 0.5 * chiselData.Length, -0.5 * chiselData.Width);
+            ChamferBuilder(Chisel, false, 0.5 * chiselData.BladeLength,            
+            chiselData.BladeLength / 40, 0, 0.5 * chiselData.Length, 0.5 * chiselData.Width);
+            // фаска сужения лезвия
+            ChamferBuilder(Chisel, true, 0.5 * chiselData.Height * 0.7662626,
+                chiselData.BladeLength, 0.5 * chiselData.Height, 0.5 * chiselData.Length, 0);
+            ChamferBuilder(Chisel, true, 0.5 * chiselData.Height * 0.7662626,
+               chiselData.BladeLength, -0.5 * chiselData.Height, 0.5 * chiselData.Length, 0);
+            //фаска лезвия
+            ChamferBuilder(Chisel, false, chiselData.BladeLength / 40, (0.7 / 3) * 0.5 * chiselData.Height,
+            (0.5 * chiselData.Height)- (0.5 * chiselData.Height * 0.7662626), 0.5 * chiselData.Length, 0);
+            ChamferBuilder(Chisel, false, chiselData.BladeLength / 40, (0.7 / 3) * 0.5 * chiselData.Height,
+            -0.5 * chiselData.Height + (0.5 * chiselData.Height * 0.7662626), 0.5 * chiselData.Length, 0);          
         }
+
+        
+
 
         /// <summary>
         /// функция построения скругления зубила пики
@@ -376,7 +298,11 @@ namespace ORSAPR.Model
                     iSketch.Create();
                     ksDocument2D iDocument2D = (ksDocument2D)iDefinitionSketch.BeginEdit();
 
-                    CalculateTopSketchParamethersLocksmith(chiselData, iDocument2D);
+                    CalculateSketchParamethers(chiselData, iDocument2D,
+                      (-0.5 * chiselData.Width),//x0
+                       (-0.5 * chiselData.Length),//y0
+                        (0.5 * chiselData.Width),//x1
+                        (0.5 * chiselData.Length));//y1
 
                     iDefinitionSketch.EndEdit();
 
@@ -409,7 +335,7 @@ namespace ORSAPR.Model
                 }                
             }
         }
-
+  
         /// <summary>
         /// функция построения внутреннего выреза слесарного зубила
         /// </summary>
@@ -440,7 +366,11 @@ namespace ORSAPR.Model
                     entitySketch2.Create();         // создадим эскиз
                     ksDocument2D iDocument2D = (ksDocument2D)sketchDef2.BeginEdit();
 
-                    CalculateInnerCotoutSketchParamethersLocksmith(chiselData, iDocument2D);
+                    CalculateSketchParamethers(chiselData, iDocument2D,
+                        (-(chiselData.Width / 2) + (0.5 * (chiselData.Width - chiselData.InnerWidth))),//x0
+                        (- ((0.5 * chiselData.Length) - (0.15 * chiselData.Length))),//y0
+                       ( 0.5 * chiselData.Width - (0.5 * (chiselData.Width - chiselData.InnerWidth))),//x1
+                       ( - (0.5 * chiselData.Length) + (0.15 * chiselData.Length) + chiselData.InnerLength));//y1
 
                     sketchDef2.EndEdit();
 
@@ -471,92 +401,28 @@ namespace ORSAPR.Model
                 }
             }
         }
-        
+
        /// <summary>
        /// функция построения фаски лезвия слесарного зубила
        /// </summary>
        /// <param name="chiselData"></param>
         private void BladeChamferLocksmith(ChiselData chiselData, ksPart Chisel)
-        {
-            ksEntity iChamfer = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-            if (iChamfer != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer.GetDefinition();
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(true, chiselData.BladeLength,
-                        chiselData.BladeLength / 40);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection = Chisel.
-                        EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(-0.5 * chiselData.Width, 0.5 * chiselData.Length, 1);
-                    ar.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0.5 * chiselData.Width, 0.5 * chiselData.Length, 1);
-                    ar.Add(iCollection.Last());
-
-                    iChamfer.Create();
-                }
-            }
-
-            ksEntity iChamfer2 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-            if (iChamfer2 != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer2.GetDefinition();
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(false, 0.5 * chiselData.Height * 0.7662626,
-                        chiselData.BladeLength);
-
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection =
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length, 0.5 * chiselData.Height);
-                    ar.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length, -0.5 * chiselData.Height);
-                    ar.Add(iCollection.Last());
-
-                    iChamfer2.Create();
-                }
-            }
-
-            ksEntity iChamfer3 = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_chamfer);
-
-            if (iChamfer3 != null)
-            {
-                ksChamferDefinition chamferDefinition =
-                    (ksChamferDefinition)iChamfer3.GetDefinition();
-
-                if (chamferDefinition != null)
-                {
-                    chamferDefinition.tangent = true;
-                    chamferDefinition.SetChamferParam(false, chiselData.BladeLength / 40,
-                        (0.7 / 3) * chiselData.Height / 2);
-                    var ar = chamferDefinition.array();
-
-                    EntityCollection iCollection =
-                        Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length,
-                        (0.5 * chiselData.Height) - (0.5 * chiselData.Height * 0.7662626));
-                    ar.Add(iCollection.Last());
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
-                    iCollection.SelectByPoint(0, 0.5 * chiselData.Length,
-                        -(0.5 * chiselData.Height) + (0.5 * chiselData.Height * 0.7662626));
-                    ar.Add(iCollection.Last());
-
-                    iChamfer3.Create();
-                }
-            }
+        {         
+            //боковые фаски
+            ChamferBuilder(Chisel, false, chiselData.BladeLength, chiselData.BladeLength / 40,
+                -0.5 * chiselData.Width, 0.5 * chiselData.Length, 1);
+            ChamferBuilder(Chisel, true, chiselData.BladeLength, chiselData.BladeLength / 40,
+                0.5 * chiselData.Width, 0.5 * chiselData.Length, 1);
+            //фаска сужения лезвия
+            ChamferBuilder(Chisel, false, 0.5 * chiselData.Height * 0.7662626, chiselData.BladeLength, 0,
+            0.5 * chiselData.Length, 0.5 * chiselData.Height);
+            ChamferBuilder(Chisel, true, 0.5 * chiselData.Height * 0.7662626, chiselData.BladeLength, 0,
+            0.5 * chiselData.Length, -0.5 * chiselData.Height);
+            //фаска лезвия
+            ChamferBuilder(Chisel, false, chiselData.BladeLength / 40, (0.7 / 3) * chiselData.Height / 2,
+            0, 0.5 * chiselData.Length, (0.5 * chiselData.Height) - (0.5 * chiselData.Height * 0.7662626));
+            ChamferBuilder(Chisel, true, chiselData.BladeLength / 40, (0.7 / 3) * chiselData.Height / 2,
+            0, 0.5 * chiselData.Length,-(0.5 * chiselData.Height) + (0.5 * chiselData.Height * 0.7662626));
         }
       
         /// <summary>

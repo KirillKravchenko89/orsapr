@@ -132,7 +132,7 @@ namespace ORSAPR.View
             this.ButtonBuild.Name = "ButtonBuild";
             this.ButtonBuild.Size = new System.Drawing.Size(120, 60);
             this.ButtonBuild.TabIndex = 6;
-            this.ButtonBuild.Text = "build";
+            this.ButtonBuild.Text = "Build";
             this.ButtonBuild.UseVisualStyleBackColor = true;
             this.ButtonBuild.Click += new System.EventHandler(this.ButtonBuild_Click);
             // 
