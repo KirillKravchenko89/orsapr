@@ -419,9 +419,9 @@ namespace ORSAPR.Model
             ChamferBuilder(Chisel, true, 0.5 * chiselData.Height * 0.7662626, chiselData.BladeLength, 0,
             0.5 * chiselData.Length, -0.5 * chiselData.Height);
             //фаска лезвия
-            ChamferBuilder(Chisel, false, chiselData.BladeLength / 40, (0.7 / 3) * chiselData.Height / 2,
-            0, 0.5 * chiselData.Length, (0.5 * chiselData.Height) - (0.5 * chiselData.Height * 0.7662626));
             ChamferBuilder(Chisel, true, chiselData.BladeLength / 40, (0.7 / 3) * chiselData.Height / 2,
+            0, 0.5 * chiselData.Length, (0.5 * chiselData.Height) - (0.5 * chiselData.Height * 0.7662626));
+            ChamferBuilder(Chisel, false, chiselData.BladeLength / 40, (0.7 / 3) * chiselData.Height / 2,
             0, 0.5 * chiselData.Length,-(0.5 * chiselData.Height) + (0.5 * chiselData.Height * 0.7662626));
         }
       
@@ -448,38 +448,6 @@ namespace ORSAPR.Model
                     iCollection.SelectByPoint(1, -chiselData.Length / 2, 1);
                     araa.Add(iCollection.Last());
 
-                    //вырез
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
-                    iCollection.SelectByPoint(1, -(0.5 * chiselData.Length) + (0.2 * chiselData.Length),
-                        (0.5 * chiselData.Height) - (chiselData.Height / 6));
-                    araa.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
-                    iCollection.SelectByPoint(
-                       -(0.5 * chiselData.Width) + (0.5 * (chiselData.Width - chiselData.InnerWidth)),
-                       -(0.5 * chiselData.Length) + (0.17 * chiselData.Length),
-                         0.5 * chiselData.Height - 0.8);
-                    araa.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
-                    iCollection.SelectByPoint(
-                        0.5 * chiselData.Width - (0.5 * (chiselData.Width - chiselData.InnerWidth)),
-                      -(0.5 * chiselData.Length) + (0.17 * chiselData.Length),
-                        0.5 * chiselData.Height - 0.8);
-                    araa.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
-                    iCollection.SelectByPoint(1,
-                        -(0.5 * chiselData.Length) + (0.15 * chiselData.Length) + chiselData.InnerLength,
-                        0.5 * chiselData.Height - 0.8);
-                    araa.Add(iCollection.Last());
-
-                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
-                    iCollection.SelectByPoint(1,
-                        -((0.5 * chiselData.Length) - (0.15 * chiselData.Length)),
-                        0.5 * chiselData.Height - 0.8);
-                    araa.Add(iCollection.Last());
-
                     //ребра
                     iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_edge);
                     iCollection.SelectByPoint(-(chiselData.Width / 2),
@@ -503,6 +471,55 @@ namespace ORSAPR.Model
 
                     iFillet.Create();
                 }
+            }
+             ksEntity iFilletInner = (ksEntity)Chisel.NewEntity((short)Obj3dType.o3d_fillet);
+            if (iFilletInner != null)
+            {
+                ksFilletDefinition filletInnerDefenition = (ksFilletDefinition)iFilletInner.GetDefinition();
+                if (filletInnerDefenition != null)
+                {
+                    double radius;
+                    if(0.5*chiselData.InnerWidth <= chiselData.Height/12)
+                    {
+                        radius = 0.5 * chiselData.InnerWidth;
+                    }
+                    else
+                    {
+                        radius= chiselData.Height / 12;
+                    }
+                    filletInnerDefenition.radius = radius;
+                    filletInnerDefenition.tangent = true;
+                    var araa = filletInnerDefenition.array();
+                    //вырез
+                    EntityCollection iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
+                    iCollection.SelectByPoint(
+                       -(0.5 * chiselData.Width) + (0.5 * (chiselData.Width - chiselData.InnerWidth)),
+                       -(0.5 * chiselData.Length) + (0.17 * chiselData.Length),
+                         0.5 * chiselData.Height - 0.1);
+                    araa.Add(iCollection.Last());
+
+                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
+                    iCollection.SelectByPoint(
+                        0.5 * chiselData.Width - (0.5 * (chiselData.Width - chiselData.InnerWidth)),
+                      -(0.5 * chiselData.Length) + (0.17 * chiselData.Length),
+                        0.5 * chiselData.Height - 0.1);
+                    araa.Add(iCollection.Last());
+
+                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
+                    iCollection.SelectByPoint(1,
+                        -(0.5 * chiselData.Length) + (0.15 * chiselData.Length) + chiselData.InnerLength,
+                        0.5 * chiselData.Height - 0.1);
+                    araa.Add(iCollection.Last());
+
+                    iCollection = Chisel.EntityCollection((short)Obj3dType.o3d_face);
+                    iCollection.SelectByPoint(1,
+                        -((0.5 * chiselData.Length) - (0.15 * chiselData.Length)),
+                        0.5 * chiselData.Height - 0.1);
+                    araa.Add(iCollection.Last());
+
+                    iFilletInner.Create();
+                }
+
             }
         } 
     }
