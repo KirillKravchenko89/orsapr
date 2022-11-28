@@ -7,37 +7,7 @@ using ORSAPR.Model;
 namespace ORSAPR.View
 {
     public partial class MainWindow : System.Windows.Forms.Form
-    {
-        /// <summary>
-        /// переменная ошибки ввода параметра ширины
-        /// </summary>
-        private string _errorTextBoxWidth = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра длины
-        /// </summary>
-        private string _errorTextBoxLength = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра высоты
-        /// </summary>
-        private string _errorTextBoxHeight = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра длины лезвия
-        /// </summary>
-        private string _errorTextBoxBladeLength = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра внутренней длины выреза
-        /// </summary>
-        private string _errorTextBoxInnerLength = string.Empty;
-
-        /// <summary>
-        /// переменная ошибки ввода параметра внутренней ширины выреза
-        /// </summary>
-        private string _errorTextBoxInnerWidth = string.Empty;
-
+    { 
         /// <summary>
         /// переменная цвета поля ошибки
         /// </summary>
@@ -79,8 +49,7 @@ namespace ORSAPR.View
         /// </summary>
         /// <param name="textBox"></param>
         private void PointValidation(TextBox textBox)
-        {
-            /*string str = textBox.Text;*/
+        {           
             string tmp = textBox.Text.Trim();
             string outS = string.Empty;
             bool comma = true;            
@@ -109,43 +78,9 @@ namespace ORSAPR.View
             Exception exception)
         {
             textBox.BackColor = _errorColor;
-            var errorMessage = exception.Message;
-            ExceptionController(errorMessage, textBox);
+            var errorMessage = exception.Message;       
             toolTipInformation.SetToolTip(textBox, errorMessage);
-        }
-     
-        /// <summary>
-        /// функция сохранения строки ошибки
-        /// </summary>
-        /// <param name="errorMessage"></param>
-        /// <param name="textBox"></param>
-        private void ExceptionController(string errorMessage, TextBox textBox)
-        {
-            if (textBox == TextBoxWidth)
-            {
-                _errorTextBoxWidth = errorMessage;
-            }
-            if (textBox == TextBoxLength)
-            {
-                _errorTextBoxLength = errorMessage;
-            }
-            if (textBox == TextBoxHeight) 
-            {
-                _errorTextBoxHeight = errorMessage;
-            }
-            if (textBox == TextBoxBladeLength)
-            {
-                _errorTextBoxBladeLength = errorMessage;
-            }
-            if (textBox == TextBoxInnerLength)
-            {
-                _errorTextBoxInnerLength = errorMessage;
-            }
-            if (textBox == TextBoxInnerWidth)
-            {
-                _errorTextBoxInnerWidth = errorMessage;
-            }
-        }
+        }         
 
         /// <summary>
         /// функция одбработчик ввода запятой первым символом
@@ -237,7 +172,6 @@ namespace ORSAPR.View
                 {
                     textBox.BackColor = _trueColor;
                 }
-                ExceptionController(errorMessage, textBox);
                 toolTipInformation.SetToolTip(textBox, string.Empty);
                 errorMessage = string.Empty;
             }          
@@ -327,21 +261,35 @@ namespace ORSAPR.View
         /// </summary>
         private void OnOffBuildButton()
         {
-            if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
-                && _chiselData.BladeLength != 0 && _chiselData.InnerLength != 0
-                && _chiselData.InnerWidth != 0) && (_errorTextBoxWidth == ""
-                && _errorTextBoxLength == "" && _errorTextBoxHeight == ""
-                && _errorTextBoxBladeLength == "" && _errorTextBoxInnerLength == ""
-                && _errorTextBoxInnerWidth == "" )&& (TextBoxWidth.Text != string.Empty
-                && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
-                && TextBoxBladeLength.Text!= string.Empty && TextBoxInnerLength.Text!=string.Empty
-                && TextBoxInnerWidth.Text!= string.Empty))
+            if(RadioButtonLocksmith.Checked == true)
             {
-                ButtonBuild.Enabled = true;
+                if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
+                    && _chiselData.BladeLength != 0 && _chiselData.InnerLength != 0
+                    && _chiselData.InnerWidth != 0) && (TextBoxWidth.Text != string.Empty
+                    && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
+                    && TextBoxBladeLength.Text != string.Empty && TextBoxInnerLength.Text != string.Empty
+                    && TextBoxInnerWidth.Text != string.Empty))
+                {
+                    ButtonBuild.Enabled = true;
+                }
+                else
+                {
+                    ButtonBuild.Enabled = false;
+                }
             }
-            else
+            if (RadioButtonPeak.Checked == true)
             {
-                ButtonBuild.Enabled = false;
+                if ((_chiselData.Width != 0 && _chiselData.Length != 0 && _chiselData.Height != 0
+                    && _chiselData.BladeLength != 0) && (TextBoxWidth.Text != string.Empty
+                    && TextBoxLength.Text != string.Empty && TextBoxHeight.Text != string.Empty
+                    && TextBoxBladeLength.Text != string.Empty))
+                {
+                    ButtonBuild.Enabled = true;
+                }
+                else
+                {
+                    ButtonBuild.Enabled = false;
+                }
             }
         }
 
@@ -443,7 +391,7 @@ namespace ORSAPR.View
         {
             InformationTool();
         }
-
+           
         /// <summary>
         /// обработчик события выбора модели зубила
         /// </summary>
@@ -451,6 +399,7 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void RadioButton_Click(object sender, EventArgs e)
         {
+            
             if(RadioButtonLocksmith.Checked == true)
             {
                 PanelPictureChisel.BackgroundImage = Properties.Resources.Chisel3D;
@@ -458,13 +407,11 @@ namespace ORSAPR.View
                 LabelInnerWidth.Visible = true;
                 TextBoxInnerLength.Visible = true;
                 TextBoxInnerWidth.Visible = true;
-
-                TextBoxInnerLength.Text = string.Empty;
-                TextBoxInnerWidth.Text = string.Empty;
+                
                 LabelWidth.Text = "W - Chisel width";
                 LabelLength.Text = "L - Chisel length";
                 LabelHeight.Text = "H - Chisel height";
-                LabelBladeLength.Text = "l1 – Chisel blade length";
+                LabelBladeLength.Text = "l1 – Chisel blade length";               
             }
 
             if (RadioButtonPeak.Checked == true)
@@ -473,15 +420,14 @@ namespace ORSAPR.View
                 LabelInnerLength.Visible = false;
                 LabelInnerWidth.Visible = false;
                 TextBoxInnerLength.Visible = false;
-                TextBoxInnerWidth.Visible = false;
-
-                TextBoxInnerLength.Text = "10";
-                TextBoxInnerWidth.Text = "5";
+                TextBoxInnerWidth.Visible = false;        
+                 
                 LabelWidth.Text ="W - Chisel blade width";
                 LabelLength.Text ="L - Chisel length";
                 LabelHeight.Text = "D/H - Chisel diameter";
                 LabelBladeLength.Text = "l1 – Chisel blade length";                            
             }
+            OnOffBuildButton();
         }
 
         /// <summary>
