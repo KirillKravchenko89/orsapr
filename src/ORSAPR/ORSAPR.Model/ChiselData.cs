@@ -48,12 +48,14 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {
                     throw new ArgumentException("Invalid chisel width range." +
-                        " Сannot be width = 0!");
+                        $"{ Environment.NewLine} Сannot be width = 0!");
                 }
                 if (value < 10 || value > 30)
                 {
-                    throw new ArgumentException("Invalid chisel width range, please check the" +
-                    " entered parameters according to the range: 10mm <= W <= 30mm.");
+                    throw new ArgumentException("Invalid chisel width range," +
+                        $"{ Environment.NewLine} please check the entered " +
+                        $"{ Environment.NewLine} parameters according to the" +
+                        $"{ Environment.NewLine} range: 10mm <= W <= 30mm.");
                 }
                 _width = value;
             }
@@ -70,7 +72,7 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {                 
                     throw new ArgumentException("Invalid chisel lenght range." +
-                        " Сannot be length = 0!");
+                        $"{ Environment.NewLine}Сannot be length = 0!");
                 }              
                 if (_width != 0)
                 {
@@ -83,27 +85,31 @@ namespace ORSAPR.Model
                             if (_width == 30)
                             {
                                 throw new ArgumentException($"Invalid chisel lenght range," +
-                                $" please check the entered parameters according to the range:" +
-                                $" {10 * _width}mm <= L <= 300mm.");
+                                   $"{ Environment.NewLine} please check the entered" +
+                                   $"{ Environment.NewLine} parameters according to the" +
+                                   $"{ Environment.NewLine} range: {10 * _width}mm <= L <= 300mm.");
                             }
                             if (_width >= 29)
                             {
                                 throw new ArgumentException($"Invalid chisel lenght range," +
-                                $" please check the entered parameters according to the range:" +
-                                $" {10 * _width}mm <= L < 300mm.");
+                                    $"{ Environment.NewLine} please check the entered" +
+                                    $"{ Environment.NewLine} parameters according to the" +
+                                    $"{ Environment.NewLine} range: {10 * _width}mm <= L < 300mm.");
                             }
                             else
                             throw new ArgumentException($"Invalid chisel lenght range," +
-                                $" please check the entered parameters according to the range:" +
-                            $" {10 * _width}mm <= L < {10 * _width + 10}mm.");
-                        }
-                        
+                              $"{ Environment.NewLine} please check the entered" +
+                              $"{ Environment.NewLine} parameters according to the" +
+                              $"{Environment.NewLine} range: {10 * _width}mm <= L < {10 * _width + 10}mm.");
+                        }        
                     }                   
                 }
                 if (value < 100 || value > 300)
                 {
-                    throw new ArgumentException("Invalid chisel lenght range, please check " +
-                        "the entered parameters according to the range: 100mm <= L <= 300mm.");
+                    throw new ArgumentException("Invalid chisel lenght range," +
+                        $"{Environment.NewLine} please check the entered" +
+                        $"{Environment.NewLine} parameters according to the" +
+                        $"{Environment.NewLine} range: 100mm <= L <= 300mm.");
                 }
                 _length = value;
             }
@@ -120,7 +126,7 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {                   
                     throw new ArgumentException("Invalid chisel height range." +
-                        " Сannot be height = 0!");
+                        $"{Environment.NewLine} Сannot be height = 0!");
                 }         
                 if (_width != 0)
                 {
@@ -128,16 +134,19 @@ namespace ORSAPR.Model
                     {
                         if (value < 0.6 * _width || value > 0.8 * _width)
                         {
-                            throw new ArgumentException($"Invalid chisel height range, please" +
-                                $" check the entered parameters according to the range:" +
-                                $" {0.6 * _width}mm <= H <= {0.8 * _width}mm.");
+                            throw new ArgumentException($"Invalid chisel height range," +
+                                $"{Environment.NewLine} please check the entered" +
+                                $"{Environment.NewLine} parameters according to the" +
+                                $"{Environment.NewLine} range: {0.6 * _width}mm <= H <= {0.8 * _width}mm.");
                         }
                     }                   
                 }
                 else if (value < 6 || value > 24)
                 {
-                    throw new ArgumentException("Invalid chisel height range, please check " +
-                        "the entered parameters according to the range: 6mm <= H <= 24mm.");
+                    throw new ArgumentException("Invalid chisel height range," +
+                        $"{Environment.NewLine} please check the entered" +
+                        $"{Environment.NewLine} parameters according to the" +
+                        $"{Environment.NewLine} range: 6mm <= H <= 24mm.");
                 }
                 _height = value;                                          
             }
@@ -154,7 +163,7 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {
                     throw new ArgumentException("Invalid chisel blade lenght range. " +
-                        "Сannot be blade Lenght = 0!");
+                        $"{Environment.NewLine}Сannot be blade Lenght = 0!");
                 }            
                 if (_length != 0)
                 {
@@ -163,15 +172,18 @@ namespace ORSAPR.Model
                         if (value < 0.4 * _length || value > 0.5 * _length)
                         {
                             throw new ArgumentException($"Invalid chisel blade lenght range," +
-                                $" please check the entered parameters according" +
-                                $" to the range: {0.4 * _length}mm <= l1 <= {0.5 * _length}mm.");
+                              $"{Environment.NewLine} please check the entered" +
+                              $"{Environment.NewLine} parameters according to the" +
+                              $"{Environment.NewLine} range: {0.4 * _length}mm <= l1 <= {0.5 * _length}mm.");
                         }
                     }                    
                 }
                 else if (value < 40 || value > 150)
                 {
-                    throw new ArgumentException("Invalid chisel blade lenght range, please " +
-                    "check the entered parameters according to the range: 40mm <= l1 <= 150mm.");
+                    throw new ArgumentException("Invalid chisel blade lenght range," +
+                        $"{Environment.NewLine} please check the entered" +
+                        $"{Environment.NewLine} parameters according to the" +
+                        $"{Environment.NewLine} range: 40mm <= l1 <= 150mm.");
                 }
                 _bladeLength = value;
             }
@@ -188,7 +200,7 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {
                     throw new ArgumentException("Invalid chisel inner cotout lenght range." +
-                        " Сannot be inner cotout lenght = 0!");
+                        $"{Environment.NewLine} Сannot be inner cotout lenght = 0!");
                 }              
                 if (_length != 0)
                 {
@@ -196,17 +208,19 @@ namespace ORSAPR.Model
                     {
                         if (value < 10 || value > 0.25 * _length)
                         {
-                            throw new ArgumentException($"Invalid chisel inner cotout lenght" +
-                                $" range, please check the entered parameters according" +
-                                $" to the range: 10mm <= l2 <= {0.25 * _length}mm.");
+                            throw new ArgumentException($"Invalid chisel inner cotout" +
+                                $"{Environment.NewLine} lenght range, please check the" +
+                                $"{Environment.NewLine} entered parameters according to the" +
+                                $"{Environment.NewLine} range: 10mm <= l2 <= {0.25 * _length}mm.");
                         }
                     }                   
                 }
                 else if (value < 10 || value > 75)
                 {
-                    throw new ArgumentException("Invalid chisel inner cotout lenght range," +
-                        " please check the entered parameters according" +
-                        " to the range: 10mm <= l2 <= 75mm.");
+                    throw new ArgumentException("Invalid chisel inner cotout" +
+                        $"{Environment.NewLine}lenght range, please check" +
+                        $"{Environment.NewLine} the entered parameters according" +
+                        $"{Environment.NewLine} to the range: 10mm <= l2 <= 75mm.");
                 }
                 _innerLength = value;
             }
@@ -223,7 +237,7 @@ namespace ORSAPR.Model
                 if (value == 0)
                 {
                     throw new ArgumentException("Invalid chisel inner cotout width range." +
-                        " Сannot be inner cotout lenght = 0!");
+                        $"{Environment.NewLine} Сannot be inner cotout lenght = 0!");
                 }               
                 if (_width != 0 && _innerLength == 0)
                 {
@@ -232,8 +246,9 @@ namespace ORSAPR.Model
                         if (value < 5 || value > 0.5 * _width)
                         {
                             throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                $" range, please check the entered parameters according" +
-                                $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");                      
+                                $"{Environment.NewLine} range, please check the entered" +
+                                $"{Environment.NewLine} parameters according to the" +
+                                $"{Environment.NewLine} range: 5mm <= w1 <= {0.5 * _width}mm.");                      
                         }
                     }                   
                 }
@@ -244,8 +259,9 @@ namespace ORSAPR.Model
                         if (value < 5 || value > _innerLength * 0.5)
                         {
                             throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                $" range, please check the entered parameters according" +
-                                $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                                $"{Environment.NewLine} range, please check the entered" +
+                                $"{Environment.NewLine} parameters according to the" +
+                                $"{Environment.NewLine} range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
                         }
                     }
                 }
@@ -258,8 +274,9 @@ namespace ORSAPR.Model
                             if (value < 5 || value > 0.5 * _width)
                             {
                                 throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                    $" range, please check the entered parameters according" +
-                                    $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");
+                                    $"{Environment.NewLine} range, please check the entered" +
+                                    $"{Environment.NewLine} parameters according to the" +
+                                    $"{Environment.NewLine} range: 5mm <= w1 <= {0.5 * _width}mm.");
                             }
                         }                      
                         else
@@ -267,8 +284,9 @@ namespace ORSAPR.Model
                             if (value < 5 || value > _innerLength * 0.5)
                             {
                                 throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                    $" range, please check the entered parameters according" +
-                                    $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                                    $"{Environment.NewLine} range, please check the entered" +
+                                    $"{Environment.NewLine} parameters according to the" +
+                                    $"{Environment.NewLine} range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
                             }
                         }
                     }
@@ -277,8 +295,9 @@ namespace ORSAPR.Model
                         if (value < 5 || value > _innerLength * 0.5)
                         {
                             throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                $" range, please check the entered parameters according" +
-                                $" to the range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
+                                $"{Environment.NewLine} range, please check the entered" +
+                                $"{Environment.NewLine} parameters according to the" +
+                                $"{Environment.NewLine} range: 5mm <= w1 <= {_innerLength * 0.5}mm.");
                         }
                     }
                     if ((_innerLength >= 10 && _innerLength <= 75) && (_width < 10 || _width > 30))
@@ -286,22 +305,25 @@ namespace ORSAPR.Model
                         if (value < 5 || value > 0.5 * _width)
                         {
                             throw new ArgumentException($"Invalid chisel inner cotout width" +
-                                $" range, please check the entered parameters according" +
-                                $" to the range: 5mm <= w1 <= {0.5 * _width}mm.");
+                                $"{Environment.NewLine} range, please check the entered" +
+                                $"{Environment.NewLine} parameters according to the" +
+                                $"{Environment.NewLine} range: 5mm <= w1 <= {0.5 * _width}mm.");
                         }
                     }
                     if ((_innerLength < 10 || _innerLength > 75) && (_width < 10 || _width > 30))
                     {
-                        throw new ArgumentException("Invalid chisel inner cotout width range," +
-                        " please check the entered parameters according" +
-                        " to the range: 5mm <= w1 <= 15mm.");
+                        throw new ArgumentException("Invalid chisel inner cotout" +
+                            $"{Environment.NewLine} width range, please check the" +
+                            $"{Environment.NewLine} entered parameters according" +
+                        $"{Environment.NewLine} to the range: 5mm <= w1 <= 15mm.");
                     }
                 }
                 else if (value < 5 || value > 15)
                 {
-                    throw new ArgumentException("Invalid chisel inner cotout width range," +
-                        " please check the entered parameters according" +
-                        " to the range: 5mm <= w1 <= 15mm.");
+                    throw new ArgumentException("Invalid chisel inner cotout" +
+                        $"{Environment.NewLine} width range, please check" +
+                        $"{Environment.NewLine} the entered parameters according" +
+                       $"{Environment.NewLine} to the range: 5mm <= w1 <= 15mm.");
                 }
                 _innerWidth = value;
             }
