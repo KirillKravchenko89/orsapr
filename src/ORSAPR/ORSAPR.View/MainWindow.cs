@@ -157,7 +157,7 @@ namespace ORSAPR.View
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="errorMessage"></param>
-        private void IfTextBoxTextChanged(TextBox textBox, string errorMessage, double chiselData)
+        private void IfTextBoxTextChanged(TextBox textBox, double chiselData)
         {
             try
             {
@@ -172,8 +172,7 @@ namespace ORSAPR.View
                 {
                     textBox.BackColor = _trueColor;
                 }
-                toolTipInformation.SetToolTip(textBox, string.Empty);
-                errorMessage = string.Empty;
+                toolTipInformation.SetToolTip(textBox, string.Empty);        
             }          
             catch (ArgumentException exception)
             {
@@ -246,13 +245,12 @@ namespace ORSAPR.View
         {
             this._chiselData = null;
             this._chiselData = new ChiselData();
-            string errorMessage = string.Empty;
-            IfTextBoxTextChanged(TextBoxWidth, errorMessage, _chiselData.Width);
-            IfTextBoxTextChanged(TextBoxLength, errorMessage, _chiselData.Length);
-            IfTextBoxTextChanged(TextBoxHeight, errorMessage, _chiselData.Height);
-            IfTextBoxTextChanged(TextBoxBladeLength, errorMessage, _chiselData.BladeLength);
-            IfTextBoxTextChanged(TextBoxInnerLength, errorMessage, _chiselData.InnerLength);
-            IfTextBoxTextChanged(TextBoxInnerWidth, errorMessage, _chiselData.InnerWidth);
+            IfTextBoxTextChanged(TextBoxWidth, _chiselData.Width);
+            IfTextBoxTextChanged(TextBoxLength, _chiselData.Length);
+            IfTextBoxTextChanged(TextBoxHeight, _chiselData.Height);
+            IfTextBoxTextChanged(TextBoxBladeLength, _chiselData.BladeLength);
+            IfTextBoxTextChanged(TextBoxInnerLength, _chiselData.InnerLength);
+            IfTextBoxTextChanged(TextBoxInnerWidth, _chiselData.InnerWidth);
             OnOffBuildButton();
         }
 
@@ -310,15 +308,18 @@ namespace ORSAPR.View
                 }
                 if (TextBoxWidth.BackColor == _trueColor && Convert.ToDouble(TextBoxWidth.Text) == 30)
                 {
-                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L <= 300mm");
+                    toolTipInformation.SetToolTip(TextBoxLength,
+                        $"{10 * _chiselData.Width}mm <= L <= 300mm");
                 }
                 else if (TextBoxWidth.BackColor == _trueColor && Convert.ToDouble(TextBoxWidth.Text) >= 29)
                 {
-                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L < 300mm");
+                    toolTipInformation.SetToolTip(TextBoxLength,
+                        $"{10 * _chiselData.Width}mm <= L < 300mm");
                 }
                 else if (TextBoxWidth.BackColor == _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxLength, $"{10 * _chiselData.Width}mm <= L < {10 * _chiselData.Width + 10}mm");
+                    toolTipInformation.SetToolTip(TextBoxLength,
+                        $"{10 * _chiselData.Width}mm <= L < {10 * _chiselData.Width + 10}mm");
                 }
             }
             if (TextBoxHeight.BackColor == _emptyColor)
@@ -329,7 +330,8 @@ namespace ORSAPR.View
                 }
                 if (TextBoxWidth.BackColor == _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxHeight, $" {0.6 * _chiselData.Width}mm <= H <= {0.8 * _chiselData.Width}mm.");
+                    toolTipInformation.SetToolTip(TextBoxHeight,
+                        $" {0.6 * _chiselData.Width}mm <= H <= {0.8 * _chiselData.Width}mm.");
                 }
             }
             if (TextBoxBladeLength.BackColor == _emptyColor)
@@ -340,7 +342,8 @@ namespace ORSAPR.View
                 }
                 if (TextBoxLength.BackColor == _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxBladeLength, $"{0.4 * _chiselData.Length}mm <= l1 <= {0.5 * _chiselData.Length}mm");
+                    toolTipInformation.SetToolTip(TextBoxBladeLength,
+                        $"{0.4 * _chiselData.Length}mm <= l1 <= {0.5 * _chiselData.Length}mm");
                 }
             }
             if (TextBoxInnerLength.BackColor == _emptyColor)
@@ -351,7 +354,8 @@ namespace ORSAPR.View
                 }
                 if (TextBoxLength.BackColor == _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxInnerLength, $"10mm <= l2 <= {0.25 * _chiselData.Length}mm");
+                    toolTipInformation.SetToolTip(TextBoxInnerLength,
+                        $"10mm <= l2 <= {0.25 * _chiselData.Length}mm");
                 }
             }
             if (TextBoxInnerWidth.BackColor == _emptyColor)
@@ -364,20 +368,24 @@ namespace ORSAPR.View
                 {
                     if (Convert.ToDouble(TextBoxWidth.Text) < Convert.ToDouble(TextBoxInnerLength.Text))
                     {
-                        toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
+                        toolTipInformation.SetToolTip(TextBoxInnerWidth,
+                            $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
                     }
                     else
                     {
-                        toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
+                        toolTipInformation.SetToolTip(TextBoxInnerWidth,
+                            $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
                     }
                 }
                 if (TextBoxWidth.BackColor == _trueColor && TextBoxInnerLength.BackColor != _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
+                    toolTipInformation.SetToolTip(TextBoxInnerWidth,
+                        $"5mm <= w1 <= {0.5 * _chiselData.Width}mm");
                 }
                 if (TextBoxWidth.BackColor != _trueColor && TextBoxInnerLength.BackColor == _trueColor)
                 {
-                    toolTipInformation.SetToolTip(TextBoxInnerWidth, $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
+                    toolTipInformation.SetToolTip(TextBoxInnerWidth,
+                        $"5mm <= w1 <= {0.5 * _chiselData.InnerLength}mm");
                 }
             }
         }
@@ -572,25 +580,34 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void ButtonBuild_Click(object sender, EventArgs e)
         {
-            _kompasApp = new KompasConnector();
-            if (!_kompasApp.CreateDocument3D())
+            try
             {
-                return;
+                _kompasApp = new KompasConnector();
+                if (!_kompasApp.CreateDocument3D())
+                {
+                    return;
+                }
+                _manager = new Manager(_kompasApp);
+
+                if (_manager != null)
+                {
+                    if (RadioButtonLocksmith.Checked == true)
+                    {
+                        _manager.BuildModelLocksmith(_chiselData);
+                    }
+                    else if (RadioButtonPeak.Checked == true)
+                    {
+                        _manager.BuildModelPeak(_chiselData);
+                    }
+
+                }
             }
-            _manager = new Manager(_kompasApp);
-               
-            if (_manager != null)
+            catch (Exception)
             {
-                if(RadioButtonLocksmith.Checked == true)
-                {
-                    _manager.BuildModelLocksmith(_chiselData);
-                }
-                else if(RadioButtonPeak.Checked == true)
-                {
-                    _manager.BuildModelPeak(_chiselData);
-                }
-               
-            }          
+
+                MessageBox.Show("k");
+            }
+            
         }
 
         /// <summary>

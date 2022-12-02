@@ -309,7 +309,6 @@ namespace ORSAPR.View
         private System.Windows.Forms.Button ButtonBuild;
         private System.Windows.Forms.TextBox TextBoxHeight;
         private System.Windows.Forms.TextBox TextBoxInnerLength;
-        private System.Windows.Forms.TextBox TextBoxWidth;
         private System.Windows.Forms.Label LabelBladeLength;
         private System.Windows.Forms.TextBox TextBoxBladeLength;
         private System.Windows.Forms.Label LabelInnerLength;
@@ -319,6 +318,7 @@ namespace ORSAPR.View
         private System.Windows.Forms.Panel PanelPictureChisel;
         private System.Windows.Forms.RadioButton RadioButtonLocksmith;
         private System.Windows.Forms.RadioButton RadioButtonPeak;
+        private System.Windows.Forms.TextBox TextBoxWidth;
     }
 }
 
