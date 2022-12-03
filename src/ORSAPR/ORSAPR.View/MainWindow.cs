@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ORSAPR.Model;
+using ORSAPR.Tests;
 
 namespace ORSAPR.View
 {
@@ -580,34 +581,25 @@ namespace ORSAPR.View
         /// <param name="e"></param>
         private void ButtonBuild_Click(object sender, EventArgs e)
         {
-            try
+            _kompasApp = new KompasConnector();
+            if (!_kompasApp.CreateDocument3D())
             {
-                _kompasApp = new KompasConnector();
-                if (!_kompasApp.CreateDocument3D())
-                {
-                    return;
-                }
-                _manager = new Manager(_kompasApp);
-
-                if (_manager != null)
-                {
-                    if (RadioButtonLocksmith.Checked == true)
-                    {
-                        _manager.BuildModelLocksmith(_chiselData);
-                    }
-                    else if (RadioButtonPeak.Checked == true)
-                    {
-                        _manager.BuildModelPeak(_chiselData);
-                    }
-
-                }
+                return;
             }
-            catch (Exception)
+            _manager = new Manager(_kompasApp);
+
+            if (_manager != null)
             {
+                if (RadioButtonLocksmith.Checked == true)
+                {
+                    _manager.BuildModelLocksmith(_chiselData);
+                }
+                else if (RadioButtonPeak.Checked == true)
+                {
+                    _manager.BuildModelPeak(_chiselData);
+                }
 
-                MessageBox.Show("k");
             }
-            
         }
 
         /// <summary>

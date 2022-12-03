@@ -39,6 +39,9 @@
     <ApplicationIcon>Chisel.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility.Data" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,6 +76,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -90,6 +94,10 @@
     <ProjectReference Include="..\ORSAPR.Model\ORSAPR.Model.csproj">
       <Project>{7b5dc893-808e-4a06-af5d-06f439653a6f}</Project>
       <Name>ORSAPR.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ORSAPR.Tests\ORSAPR.Tests.csproj">
+      <Project>{aa97bf4f-529d-408c-a87c-f4db974e4e8c}</Project>
+      <Name>ORSAPR.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

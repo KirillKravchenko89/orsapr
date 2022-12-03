@@ -126,11 +126,11 @@ namespace ORSAPR.Model
         /// метод уничтожения приложения компас
         /// </summary>
 		public void DestructApp()
-        {
+        {  
             KompasObject.Quit();
-            KompasObject = null;
-            Document3D = null;
             Chisel = null;
+            Document3D = null;           
+            KompasObject = null; 
         }
 	}
 }
